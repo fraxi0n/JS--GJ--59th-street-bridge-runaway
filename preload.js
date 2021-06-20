@@ -1,7 +1,6 @@
+let musicOn = false
 
-let musicOn = true
-
-let nbObstacleSegment = 8 // le nb de ligne d'obstacle à chaque segment
+let nbObstacleSegment = 5 // le nb de ligne d'obstacle à chaque segment
 
 
 
@@ -9,23 +8,30 @@ let nbObstacleSegment = 8 // le nb de ligne d'obstacle à chaque segment
 let vitesse voiture * 112 /120  = écart obstacle
 */
 
-let voitureSpeed = 1120  // vitesse de la voiture 
+let voitureSpeed// = 1120  // vitesse de la voiture 
+let TvoitureSpeed =[ null,  784, 1008, 1120]
 
-let distObstacle = 1200   //la distance entre chaque ligne d'obstacle 
-//1200
-let distMessage=2000 // la distance sur laquelle le message est affiché peut être convertit en durée:
-    distMessage= voitureSpeed * 2 //  = 2 secondes d'affichage 
+
+let distObstacle// = 1200   //la distance entre chaque ligne d'obstacle 
+let TdistObstacle =[ null,  840, 1080, 1200]
+
+
+
+
+let distMessage   //=2000 // la distance sur laquelle le message est affiché peut être convertit en durée:
+    //distMessage= voitureSpeed * 2 //  = 2 secondes d'affichage 
 
 let apparitionMessage=  RandomINT(5,8)/10  // apparition du message des mines, ici le message apparrait entre 50% et 80% du segment parcouru 
 
-let nbSegment = 1000
+let nbSegment = 3
 
 let segment = []
 
+
+// A RETIRER ??
 for(let S= 1; S<= nbSegment; S++) { segment[S]=[]
     segment [S].nbVoie = null
     segment [S].voieDepart = null
-
 
 }
 
@@ -46,19 +52,21 @@ let roadEcartX=910
 let roadEcartY=80
 
 let distVoiture // 
-let distDepart  =  2.5 * distObstacle// distObstacle*0.5   --1.2
-let distSegment = ( nbObstacleSegment+1.5)*distObstacle
+let distDepart  //=  1.2 * distObstacle// distObstacle*0.5   --1.2
+let distSegment //= ( nbObstacleSegment+1.5)*distObstacle
 let nextObstacle //
 let nextMessage //
+
+let decalWin = 0
 
 
 //let  voitureV
 
 let V=[]
-V[1] = roadY
-V[2] = roadY+roadEcartY
-V[3] = roadY+roadEcartY*2
-V[4] = roadY+roadEcartY*3
+V[1] = roadY-15
+V[2] = V[1]+roadEcartY
+V[3] = V[1]+roadEcartY*2
+V[4] = V[1]+roadEcartY*3
 
 
 // ---------------------
@@ -103,7 +111,6 @@ SG[2][2]= [null,2,3,4,5,10,11,12,13]
 SG[2][3]= [null,4,5,6,7,8 ,9 ,10,11]
 
 
-//let SGindex= [0,0,8,12,13]
 
 let SGindex = []
 SGindex[2] = 8
@@ -112,23 +119,73 @@ SGindex[4] = 14
 
 
 
-    //SG1=[1,2,4,8]
+let menu=[] 
+
+   menu.I= []   
+   menu.I[1]= []
+   menu.I[2]= []
+   menu.I[3]=[]
+
+   menu.I[1][1]= []
+   menu.I[1][2]= []
+   menu.I[1][3]= []
+
+   menu.I[2][1]= []
+   menu.I[2][2]= []
+   menu.I[2][3]= []
+   menu.I[2][4]= []
 
 
 
-/*
-SG[3]={}
-SG[3][1]= [1,2,3,4,5,6]
-SG[3][2]= [2,4,6,8,10,12]
 
-SG[2]=[]
-SG[2][1]= [1,2]
-SG[2][2]= [2,4]
-SG[2][3]= [4,8]
+   menu.I[1][1] .txt ="How to  play"
+   menu.I[1][1] .x =300
+   menu.I[1][1] .y =200
 
-SG1=[1,2,4,8]
-*/
-//------------------------
 
-//let segment =[]
+   menu.I[1][2] .txt ="Play"
+   menu.I[1][2] .x =300
+   menu.I[1][2] .y =250
+
+   menu.I[1][3] .txt = "Credit"
+   menu.I[1][3] .x = 300
+   menu.I[1][3] .y = 300
+
+
+
+
+   menu.I[2][1] .txt ="Easy"
+   menu.I[2][1] .x =300
+   menu.I[2][1] .y =200
+
+
+
+   menu.I[2][2] .txt ="Medium"
+   menu.I[2][2] .x =300
+   menu.I[2][2] .y =250
+
+
+   menu.I[2][3] .txt = "Hard"
+   menu.I[2][3] .x = 300
+   menu.I[2][3] .y = 300
+
+   menu.I[2][4] .txt = "Back"
+   menu.I[2][4] .x = 300
+   menu.I[2][4] .y = 350
+
+
+   menu.I[3][1]=[]
+   menu.I[3][1] .txt ="Restart"
+   menu.I[3][1] .x =300
+   menu.I[3][1] .y =200
+
+   menu.I[3][2]=[]
+   menu.I[3][2] .txt ="Back to menu"
+   menu.I[3][2] .x =300
+   menu.I[3][2] .y =250
+
+
+
+   menu.curseur = 1 
+   menu.statut = 1
 
