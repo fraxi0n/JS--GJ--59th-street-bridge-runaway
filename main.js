@@ -7,18 +7,18 @@ let maintenant
 
 function run(){
 
-  maintenant = Date.now ()
-   dt = (maintenant-derniereUpdate)/1000
-  derniereUpdate= maintenant
-update();
-ctx.clearRect(0,0,canvas.width,canvas.height);
-draw(ctx)
+    maintenant = Date.now ()
+    dt = (maintenant-derniereUpdate)/1000
+    derniereUpdate= maintenant
+    update();
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    draw(ctx)
 }
 
 function init() {
 
- load();
-interval= setInterval(run,1000/60);
+    load();
+    interval= setInterval(run,1000/60);
 
 }
 

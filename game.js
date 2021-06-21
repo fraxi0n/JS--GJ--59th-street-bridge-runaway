@@ -1,4 +1,4 @@
-let hasPlaySfx = false;
+let hasPlaySignal = false;
 
 function load()
 {
@@ -22,22 +22,28 @@ function load()
     curseur = new Sprite ("sprite/curseur.png" )
     PlaceCursor()
 
-
+    /*
     music = new Audio();
     music.src = "audio/NYC1997.ogg";
-    music.setAttribute("volume", 1.0);
+    music.volume =  1.0;
     music.setAttribute("preload", "auto");
     music.loop = true;
 
     obsSfx = new Audio();
     obsSfx.src = ("audio/obstacle.wav");
-    obsSfx.setAttribute("volume", 1.0);
+    obsSfx.volume = 0.4;
     obsSfx.loop = false;
 
     sigSfx = new Audio();
     sigSfx.src = ("audio/signal.wav");
-    sigSfx.setAttribute("volume", 1.0);
+    sigSfx.volume = 0.7;
     sigSfx.loop = false;
+
+    explosionSfx = new Audio();
+    explosionSfx.src = ("audio/explosion.wav");
+    explosionSfx.volume = 0.6;
+    explosionSfx.loop = false;
+    */
 
     InitGame()
 
@@ -58,6 +64,11 @@ function InitGame()
     CreateMap()
     distVoiture = 0
     nextObstacle = 1
+    hasPlaySignal = false;
+    //obsSfx.pause();
+    //obsSfx.currentTime = 0;
+    //explosionSfx.pause();
+    //explosionSfx.currentTime = 0;
 }
 
 function ReglageDifficulte(pDifficult = 0)
@@ -192,9 +203,16 @@ function BOOM(pRaison)
     menu.curseur=1
     menu.statut=3
     PlaceCursor()
-if (pRaison == "obstacle"){obsSfx.play()}
-if (pRaison == "mine"){}
+    if (pRaison == "obstacle")
+    {
+        obstacleInstance.val.start();
+    }
+    if (pRaison == "mine")
+    {
+        explosionInstance.val.start();
+    }
     GameMod = "OVER"
+    hasPlaySignal = false;
     // console.log ("BOOM" ,nextObstacle,  Math.floor( distVoiture))
 }
 
@@ -254,6 +272,11 @@ function KeyDown(t)   //      ELSE IF A TESTER
     if (GameMod == "MENU" || GameMod == "OVER" )
     {
 
+        if (GameMod == "OVER")
+        {
+            explosionInstance.val.stop(FMOD.STUDIO_STOP_ALLOWFADEOUT);
+            obstacleInstance.val.stop(FMOD.STUDIO_STOP_ALLOWFADEOUT);
+        }
 
         if (t.code == "ArrowUp")
          {
@@ -294,7 +317,10 @@ function KeyDown(t)   //      ELSE IF A TESTER
                    if(menu.curseur<=3)
                    {
                     
-                    if (musicOn==true) {  music.play() }
+                    if (musicOn==true) {
+                          //music.play() 
+                          musicInstance.val.start(); 
+                        }
                     ReglageDifficulte(menu.curseur)
                     GameMod = "GAME"
                    }
@@ -309,29 +335,25 @@ function KeyDown(t)   //      ELSE IF A TESTER
                 {
                     
                
-                   if(menu.curseur==1)
-                   {
+                    if(menu.curseur==1)
+                    {
+                        InitGame()
+                        ReglageDifficulte()
+                        GameMod = "GAME"
+                    }
+                    if(menu.curseur==2)
+                    {
+                        InitGame()
+                        GameMod = 
+                        "MENU"
+                        menu.statut=1
+                        menu.curseur=1
+                        PlaceCursor()
+                    }
 
+                }
 
-                    
-                    InitGame()
-                    if (musicOn==true) {  music.play() }
-                    ReglageDifficulte()
-                    GameMod = "GAME"
-                   }
-                   if(menu.curseur==2)
-                   {
-                       InitGame()
-                       GameMod = 
-                       "MENU"
-                       menu.statut=1
-                       menu.curseur=1
-                       PlaceCursor()
-                   }
-
-               }
-
-         }
+        }
             
 
     }
@@ -544,7 +566,11 @@ function draw(pCtx)
 
 
         //pCtx.drawImage(imgBulle, 50 ,20 )
-        sigSfx.play();
+        if (!hasPlaySignal)
+        {
+            signalInstance.val.start();
+            hasPlaySignal = true;
+        }
         bulle.draw(pCtx)
         // console.log("YOUPI")
         if (segment[FindNumSegment(nextObstacle) + 1].nbVoie == 2)
@@ -574,6 +600,10 @@ function draw(pCtx)
             else 
                 pCtx.drawImage(imgNupe, 155, 82)
             }
+     }
+     else
+     {
+         hasPlaySignal = false;
      }
 
     }

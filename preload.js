@@ -1,4 +1,4 @@
-let musicOn = false
+let musicOn = true
 
 let nbObstacleSegment = 5 // le nb de ligne d'obstacle à chaque segment
 
