@@ -1,5 +1,6 @@
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
+ctx.font = "15px myFont";
 let interval;
 let derniereUpdate = Date.now()
 let dt 

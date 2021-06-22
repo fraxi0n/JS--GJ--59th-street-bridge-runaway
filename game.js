@@ -22,29 +22,6 @@ function load()
     curseur = new Sprite ("sprite/curseur.png" )
     PlaceCursor()
 
-    /*
-    music = new Audio();
-    music.src = "audio/NYC1997.ogg";
-    music.volume =  1.0;
-    music.setAttribute("preload", "auto");
-    music.loop = true;
-
-    obsSfx = new Audio();
-    obsSfx.src = ("audio/obstacle.wav");
-    obsSfx.volume = 0.4;
-    obsSfx.loop = false;
-
-    sigSfx = new Audio();
-    sigSfx.src = ("audio/signal.wav");
-    sigSfx.volume = 0.7;
-    sigSfx.loop = false;
-
-    explosionSfx = new Audio();
-    explosionSfx.src = ("audio/explosion.wav");
-    explosionSfx.volume = 0.6;
-    explosionSfx.loop = false;
-    */
-
     InitGame()
 
     for (let S = 1; S <= 50; S++)
@@ -65,10 +42,6 @@ function InitGame()
     distVoiture = 0
     nextObstacle = 1
     hasPlaySignal = false;
-    //obsSfx.pause();
-    //obsSfx.currentTime = 0;
-    //explosionSfx.pause();
-    //explosionSfx.currentTime = 0;
 }
 
 function ReglageDifficulte(pDifficult = 0)
@@ -318,7 +291,6 @@ function KeyDown(t)   //      ELSE IF A TESTER
                    {
                     
                     if (musicOn==true) {
-                          //music.play() 
                           musicInstance.val.start(); 
                         }
                     ReglageDifficulte(menu.curseur)
@@ -618,8 +590,8 @@ function draw(pCtx)
         pCtx.fillText(menu.I[menu.statut][S].txt, menu.I[menu.statut][S].x, menu.I[menu.statut][S].y)
        }
 
-
-        pCtx.fillText("Arrow to naviguate - ENTER to choose  ", 300, 400 )
+        pCtx.fillText("Arrow to naviguate", 300, 400 )
+        pCtx.fillText("ENTER to choose  ", 300, 420 )
     }
     if (GameMod == "OVER")
     { pCtx.drawImage(imgVoitureCasse,voiture.x+10,voiture.y)
