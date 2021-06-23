@@ -1,6 +1,6 @@
 let musicOn = true
 
-let nbObstacleSegment = 3 // le nb de ligne d'obstacle à chaque segment
+let nbObstacleSegment = 6 // le nb de ligne d'obstacle à chaque segment
 
 
 
@@ -9,11 +9,11 @@ let vitesse voiture * 112 /120  = écart obstacle
 */
 
 let voitureSpeed// = 1120  // vitesse de la voiture 
-let TvoitureSpeed =[ null,  784, 1008, 1120]
+let TvoitureSpeed =[ null,  784, 1008, 1344]
 
 
 let distObstacle// = 1200   //la distance entre chaque ligne d'obstacle 
-let TdistObstacle =[ null,  840, 1080, 1200]
+let TdistObstacle =[ null,  840, 1080, 1440]
 
 
 
@@ -23,7 +23,7 @@ let distMessage   //=2000 // la distance sur laquelle le message est affiché pe
 
 let apparitionMessage=  RandomINT(4,7)/10  // apparition du message des mines, ici le message apparrait entre 50% et 80% du segment parcouru 
 
-let nbSegment = 2
+let nbSegment = 8
 
 let segment = []
 
@@ -39,14 +39,14 @@ for(let S= 1; S<= nbSegment; S++) { segment[S]=[]
 
 //--------------------------------------------------------------------
 
-let GameMod = "MENU"
+let GameMod = "CLICTOPLAY"
 
 
 let imgObstacle
 let imgRoad
 let imgNupe
+let imgTitre
 
-//let imgObstacleW
 let roadX= 0
 let roadY= 175+128
 let roadEcartX = 400-1

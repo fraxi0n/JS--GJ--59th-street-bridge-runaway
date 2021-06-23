@@ -4,20 +4,20 @@ function load()
 {
     document.addEventListener("keydown", KeyDown, false)
     document.addEventListener("keyup", KeyUp, false)  
+    document.addEventListener("mousedown", mouseDown)
+
+
     imgObstacle = new Image ()
     imgObstacle.src = "sprite/obstacle.png" 
     imgMainRoad = new Image ()
     imgMainRoad.src = "sprite/route.png" 
     imgBarriere = new Image ()
     imgBarriere.src = "sprite/barriere.png" 
-
-
-
-
     imgNupe = new Image ()
     imgNupe.src = "sprite/nupe.png" 
     imgInterSegment = new Image()
     imgInterSegment.src = "sprite/interSegment.png"
+
 
     voiture.img[1] = new Image()
     voiture.img[2] = new Image()
@@ -54,10 +54,15 @@ for (let S=1; S<=9;S++)
     voiture.y=V [voiture.V]
 
     //voiture = new Sprite ("sprite/voiture.png",30,V[2] )
+
+
     bulle = new Sprite ("sprite/bulle.png",50,20 )
     fond1 = new Sprite ("sprite/fond1.png")
     fond2 = new Sprite ("sprite/fond2.png", 944 )
     curseur = new Sprite ("sprite/curseur.png" )
+    titre = new Sprite("sprite/titre.png",200,65)
+
+
     PlaceCursor()
 
     InitGame()
@@ -398,11 +403,25 @@ function KeyDown(t)   //      ELSE IF A TESTER
 
 
 
+
 } 
+
+
+function mouseDown()// CLICK TO PLAY
+{
+    if (GameMod == "CLICTOPLAY")
+    {
+        GameMod="MENU"
+    }
+    
+}
+
 
 
 function update()
 {
+
+
     if(GameMod == "OVER")
     {
         if (timer>0)
@@ -658,11 +677,13 @@ function draw(pCtx)
 
 
         //pCtx.drawImage(imgBulle, 50 ,20 )
-        if (!hasPlaySignal)
+
+        if (!hasPlaySignal && segment[FindNumSegment(nextObstacle) + 1].nbVoie < 4)
         {
             signalInstance.val.start();
             hasPlaySignal = true;
         }
+
         bulle.draw(pCtx)
         // console.log("YOUPI")
         if (segment[FindNumSegment(nextObstacle) + 1].nbVoie == 2)
@@ -702,7 +723,7 @@ function draw(pCtx)
     }
     if (GameMod == "MENU")
     {
-        ctx.fillStyle = 'rgb(255, 255, 255)';
+      //  ctx.fillStyle = 'rgb(255, 255, 255)';
         pCtx.drawImage(voiture.img[1],voiture.x,voiture.y)
 
         //pCtx.drawImage(voiture.img[1],voiture.x,voiture.y)
@@ -718,6 +739,16 @@ function draw(pCtx)
 
 
         pCtx.fillText("Arrow to naviguate - ENTER to choose  ", 400, 50 )
+    }
+    if (GameMod == "CLICTOPLAY")
+    {
+        ctx.fillStyle = 'rgb(255, 255, 255)';
+        pCtx.drawImage(voiture.img[1],voiture.x,voiture.y)
+
+        titre.draw(pCtx)
+
+
+        pCtx.fillText("-- CLICK TO PLAY --", 480, 50 )
     }
     if (GameMod == "OVER")
     { 
@@ -752,7 +783,9 @@ function draw(pCtx)
 
         pCtx.fillText("Mission complete", 340, 140)
      //   pCtx.fillText("Press RETURN to restart", 300, 50)
-    }
+    }    
+
+
 
 }
 
