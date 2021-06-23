@@ -44,6 +44,7 @@ let GameMod = "CLICTOPLAY"
 
 let imgObstacle
 let imgRoad
+let imgBarriere
 let imgNupe
 let imgTitre
 

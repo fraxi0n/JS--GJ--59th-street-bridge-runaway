@@ -11,12 +11,15 @@ function load()
     imgObstacle.src = "sprite/obstacle.png" 
     imgMainRoad = new Image ()
     imgMainRoad.src = "sprite/route.png" 
-    imgBarriere = new Image ()
-    imgBarriere.src = "sprite/barriere.png" 
     imgNupe = new Image ()
     imgNupe.src = "sprite/nupe.png" 
     imgInterSegment = new Image()
     imgInterSegment.src = "sprite/interSegment.png"
+    imgBarriere = new Image()
+    imgBarriere.src = "sprite/barriere.png"
+    
+
+
 
 
     voiture.img[1] = new Image()
@@ -57,8 +60,26 @@ for (let S=1; S<=9;S++)
 
 
     bulle = new Sprite ("sprite/bulle.png",50,20 )
-    fond1 = new Sprite ("sprite/fond1.png")
-    fond2 = new Sprite ("sprite/fond2.png", 944 )
+
+
+
+    fond1_1 = new Sprite ("sprite/fond 2/C1-1.png")
+    fond1_2 = new Sprite ("sprite/fond 2/C1-2.png",1000)
+    fond2_1 = new Sprite ("sprite/fond 2/C2-1.png")
+    fond2_2 = new Sprite ("sprite/fond 2/C2-2.png",1000)
+    fond3_1 = new Sprite ("sprite/fond 2/C3-1.png")
+    fond3_2 = new Sprite ("sprite/fond 2/C3-2.png",1000)
+    fond4_1 = new Sprite ("sprite/fond 2/C4-1.png")
+    fond4_2 = new Sprite ("sprite/fond 2/C4-2.png",1000)
+    fond5 = new Sprite ("sprite/fond 2/C5.png")
+
+    fond1_2.largeur=2000
+    fond2_2.largeur=1747
+    fond3_2.largeur=1509
+    fond4_2.largeur=1336
+
+
+
     curseur = new Sprite ("sprite/curseur.png" )
     titre = new Sprite("sprite/titre.png",200,65)
 
@@ -81,8 +102,15 @@ function InitGame()
     voiture.V = 2
     voiture.y = V[voiture.V]
     roadX= 0
-    fond1.x=0
-    fond2.x=944
+    fond1_1.x = 0
+    fond1_2.x = 1000
+    fond2_1.x = 0
+    fond2_2.x = 10000
+    fond3_1.x = 0
+    fond3_2.x = 1000
+    fond4_1.x = 0
+    fond4_2.x = 1000
+
     frameVoiture = 1
     CreateMap()
     distVoiture = 0
@@ -525,9 +553,25 @@ function update()
             frameVoiture-=2
         }
 
+        console.log(fond1_2.largeur)
+
+        fond1_1.x -= (fond1_2.largeur-1200)/(distTotal/voitureSpeed )*dt
+        fond1_2.x -= (fond1_2.largeur-1200)/(distTotal/voitureSpeed )*dt
+
+        fond2_1.x -= (fond2_2.largeur-1200)/(distTotal/voitureSpeed )*dt
+        fond2_2.x -= (fond2_2.largeur-1200)/(distTotal/voitureSpeed )*dt
+
+        fond3_1.x-= (fond3_2.largeur-1200)/(distTotal/voitureSpeed )*dt
+        fond3_2.x-= (fond3_2.largeur-1200)/(distTotal/voitureSpeed )*dt
+
+        fond4_1.x-= (fond4_2.largeur-1200)/(distTotal/voitureSpeed )*dt
+        fond4_2.x-= (fond4_2.largeur-1200)/(distTotal/voitureSpeed )*dt
+
+
+     /*
         fond1.x-= (1887-1200)/(distTotal/voitureSpeed )*dt
         fond2.x-= (1887-1200)/(distTotal/voitureSpeed )*dt
-
+     */
 
 
         distVoiture = distVoiture + voitureSpeed * dt
@@ -632,8 +676,19 @@ function draw(pCtx)
 {
     
 
-    fond1.draw(pCtx)
-    fond2.draw(pCtx)
+    fond5.draw(pCtx)
+    fond4_2.draw(pCtx)
+    fond4_1.draw(pCtx)
+    fond3_1.draw(pCtx)
+    fond3_2.draw(pCtx)
+    fond2_1.draw(pCtx)
+    fond2_2.draw(pCtx)
+    fond1_1.draw(pCtx)
+    fond1_2.draw(pCtx)
+
+
+
+
 
     //pCtx.drawImage (voitureCrash.img[2], 0,0)
 
@@ -785,7 +840,11 @@ function draw(pCtx)
      //   pCtx.fillText("Press RETURN to restart", 300, 50)
     }    
 
-
-
+    pCtx.globalAlpha = 0.4
+    for (let S= 0; S<=3; S++)
+    {
+        pCtx.drawImage(imgBarriere, roadX+ (S*roadEcartX), 570  )
+    }
+    pCtx.globalAlpha = 1
 }
 
