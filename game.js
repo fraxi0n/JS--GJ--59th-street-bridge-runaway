@@ -1,5 +1,4 @@
 let hasPlaySignal = false;
-let hasFadeOut = false;
 
 function load()
 {
@@ -84,7 +83,6 @@ function InitGame()
     distVoiture = 0
     nextObstacle = 1
     hasPlaySignal = false;
-    hasFadeOut = false;
 }
 
 function ReglageDifficulte(pDifficult = 0)
@@ -326,9 +324,11 @@ function KeyDown(t)   //      ELSE IF A TESTER
                    if(menu.curseur<=3)
                    {
                     
-                    if (musicOn==true) {
-                          musicInstance.val.start(); 
-                        }
+                    if (musicOn==true)
+                    {
+                        musicInstance.val.setParameterByID(fadeOutID, false, false);
+                        musicInstance.val.start(); 
+                    }
                     ReglageDifficulte(menu.curseur)
                     GameMod = "GAME"
                    }
@@ -470,12 +470,6 @@ function update()
             decalWin=0
             InitGame()
         }
-        //fade out music
-        if (!hasFadeOut)
-        {
-            musicInstance.val.setParameterByID(fadeOutID, true, false);
-            hasFadeOut = true;
-        }
 
         if(decalWin< voitureSpeed) 
         {
@@ -548,6 +542,7 @@ function update()
             {
                 GameMod="WIN"
                 timer = 5
+                musicInstance.val.setParameterByID(fadeOutID, true, false);
             }
         }
         //---------------------
