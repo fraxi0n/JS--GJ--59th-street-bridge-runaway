@@ -1,6 +1,6 @@
 let musicOn = true
 
-let nbObstacleSegment = 7 // le nb de ligne d'obstacle à chaque segment
+let nbObstacleSegment = 3 // le nb de ligne d'obstacle à chaque segment
 
 
 
@@ -23,7 +23,7 @@ let distMessage   //=2000 // la distance sur laquelle le message est affiché pe
 
 let apparitionMessage=  RandomINT(4,7)/10  // apparition du message des mines, ici le message apparrait entre 50% et 80% du segment parcouru 
 
-let nbSegment = 10
+let nbSegment = 2
 
 let segment = []
 
@@ -180,4 +180,4 @@ let menu=[]
    menu.statut = 2
 
    let raisonBoom
-   let delayRestart 
+   let timer 

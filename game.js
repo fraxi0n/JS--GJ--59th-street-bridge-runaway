@@ -79,6 +79,7 @@ function InitGame()
     roadX= 0
     fond1.x=0
     fond2.x=944
+    frameVoiture = 1
     CreateMap()
     distVoiture = 0
     nextObstacle = 1
@@ -96,7 +97,7 @@ function ReglageDifficulte(pDifficult = 0)
     distDepart  =  1.30 * distObstacle
     distSegment = ( nbObstacleSegment+1)*distObstacle
     distMessage= voitureSpeed * 2
-    distTotal = distSegment*nbSegment + distDepart
+    distTotal = distSegment*nbSegment + distDepart-(9*70)
 
 
 
@@ -223,7 +224,7 @@ function CreateMap()
 function BOOM(pRaison)
 {
     frameVoiture=1
-    delayRestart=0.5
+    timer=0.5
     raisonBoom = pRaison
     menu.curseur=1
     menu.statut=1
@@ -404,9 +405,9 @@ function update()
 {
     if(GameMod == "OVER")
     {
-        if (delayRestart>0)
+        if (timer>0)
         {
-            delayRestart-= dt
+            timer-= dt
             menu.curseur=1
             PlaceCursor()
         }
@@ -460,6 +461,15 @@ function update()
 
     if (GameMod == "WIN")
     {
+        timer -= dt
+        if(timer<=0)
+        {
+            GameMod="MENU"
+            menu.statut=2
+            voiture.x=30
+            decalWin=0
+            InitGame()
+        }
         //fade out music
         if (!hasFadeOut)
         {
@@ -476,7 +486,7 @@ function update()
             }
         }
 
-        if (decalWin<1000) {voiture.x+= decalWin/2*dt}
+        voiture.x+= decalWin/2*dt
 
         roadX = roadX+(decalWin- voitureSpeed) * dt
 
@@ -484,6 +494,7 @@ function update()
         {
             roadX = roadX + roadEcartX 
         }
+        
 
         //distVoiture = distVoiture + voitureSpeed * dt
     }
@@ -529,14 +540,14 @@ function update()
 
 
 
-//console.log (imgObstacle.width)
+
         if (CalObsPosX(nextObstacle) < 0 - 156/* obstacle width*/  )
         {
             nextObstacle = nextObstacle + 1
             if(FindNumSegment(nextObstacle)== nbSegment+1) 
             {
-                console.log("WIN")
                 GameMod="WIN"
+                timer = 5
             }
         }
         //---------------------
