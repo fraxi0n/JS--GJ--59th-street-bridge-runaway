@@ -51,6 +51,7 @@ var musicInstance = {};
 var explosionInstance = {};
 var signalInstance = {};
 var obstacleInstance = {};
+var fadeOutID;
 
 var gBank = [ null, null];
 var gWantBankLoaded = [ false, false];
@@ -362,6 +363,10 @@ function initApplication()
     CHECK_RESULT( gSystem.getEvent("event:/explosion", explosionDescription) );
     
     CHECK_RESULT( explosionDescription.val.createInstance(explosionInstance) );
+
+    var paramDesc = {};
+    CHECK_RESULT( musicDescription.val.getParameterDescriptionByName("EndGame", paramDesc) );
+    fadeOutID = paramDesc.id;
     
     
     CHECK_RESULT( gSystem.setCallback(studioCallback, FMOD.STUDIO_SYSTEM_CALLBACK_BANK_UNLOAD) );

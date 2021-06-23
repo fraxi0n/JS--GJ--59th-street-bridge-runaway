@@ -1,4 +1,5 @@
 let hasPlaySignal = false;
+let hasFadeOut = false;
 
 function load()
 {
@@ -60,29 +61,6 @@ for (let S=1; S<=9;S++)
     curseur = new Sprite ("sprite/curseur.png" )
     PlaceCursor()
 
-    /*
-    music = new Audio();
-    music.src = "audio/NYC1997.ogg";
-    music.volume =  1.0;
-    music.setAttribute("preload", "auto");
-    music.loop = true;
-
-    obsSfx = new Audio();
-    obsSfx.src = ("audio/obstacle.wav");
-    obsSfx.volume = 0.4;
-    obsSfx.loop = false;
-
-    sigSfx = new Audio();
-    sigSfx.src = ("audio/signal.wav");
-    sigSfx.volume = 0.7;
-    sigSfx.loop = false;
-
-    explosionSfx = new Audio();
-    explosionSfx.src = ("audio/explosion.wav");
-    explosionSfx.volume = 0.6;
-    explosionSfx.loop = false;
-    */
-
     InitGame()
 
     for (let S = 1; S <= 50; S++)
@@ -105,10 +83,7 @@ function InitGame()
     distVoiture = 0
     nextObstacle = 1
     hasPlaySignal = false;
-    //obsSfx.pause();
-    //obsSfx.currentTime = 0;
-    //explosionSfx.pause();
-    //explosionSfx.currentTime = 0;
+    hasFadeOut = false;
 }
 
 function ReglageDifficulte(pDifficult = 0)
@@ -351,7 +326,6 @@ function KeyDown(t)   //      ELSE IF A TESTER
                    {
                     
                     if (musicOn==true) {
-                          //music.play() 
                           musicInstance.val.start(); 
                         }
                     ReglageDifficulte(menu.curseur)
@@ -486,6 +460,13 @@ function update()
 
     if (GameMod == "WIN")
     {
+        //fade out music
+        if (!hasFadeOut)
+        {
+            musicInstance.val.setParameterByID(fadeOutID, true, false);
+            hasFadeOut = true;
+        }
+
         if(decalWin< voitureSpeed) 
         {
             decalWin += dt*300
@@ -763,7 +744,7 @@ function draw(pCtx)
         pCtx.drawImage(voiture.img[1],voiture.x,voiture.y)
 
 
-        pCtx.fillText("Congratulation, you sucess to escape", 340, 140)
+        pCtx.fillText("Mission complete", 340, 140)
      //   pCtx.fillText("Press RETURN to restart", 300, 50)
     }
 
