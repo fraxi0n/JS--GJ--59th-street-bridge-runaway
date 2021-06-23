@@ -1,6 +1,6 @@
 let musicOn = true
 
-let nbObstacleSegment = 5 // le nb de ligne d'obstacle à chaque segment
+let nbObstacleSegment = 7 // le nb de ligne d'obstacle à chaque segment
 
 
 
@@ -21,14 +21,15 @@ let TdistObstacle =[ null,  840, 1080, 1200]
 let distMessage   //=2000 // la distance sur laquelle le message est affiché peut être convertit en durée:
     //distMessage= voitureSpeed * 2 //  = 2 secondes d'affichage 
 
-let apparitionMessage=  RandomINT(5,8)/10  // apparition du message des mines, ici le message apparrait entre 50% et 80% du segment parcouru 
+let apparitionMessage=  RandomINT(4,7)/10  // apparition du message des mines, ici le message apparrait entre 50% et 80% du segment parcouru 
 
-let nbSegment = 3
+let nbSegment = 10
 
 let segment = []
 
 
 // A RETIRER ??
+
 for(let S= 1; S<= nbSegment; S++) { segment[S]=[]
     segment [S].nbVoie = null
     segment [S].voieDepart = null
@@ -40,17 +41,18 @@ for(let S= 1; S<= nbSegment; S++) { segment[S]=[]
 
 let GameMod = "MENU"
 
- 
+
 let imgObstacle
 let imgRoad
 let imgNupe
 
 //let imgObstacleW
 let roadX= 0
-let roadY= 160
-let roadEcartX=910
-let roadEcartY=80
+let roadY= 175+128
+let roadEcartX = 400-1
+let roadEcartY = 80
 
+let distTotal
 let distVoiture // 
 let distDepart  //=  1.2 * distObstacle// distObstacle*0.5   --1.2
 let distSegment //= ( nbObstacleSegment+1.5)*distObstacle
@@ -59,14 +61,26 @@ let nextMessage //
 
 let decalWin = 0
 
+let voitureCrash=[]
+voitureCrash.img=[]
 
-//let  voitureV
+let voitureBoom=[]
+voitureBoom.img=[]
+
+let voiture= []
+voiture.img=[]
 
 let V=[]
-V[1] = roadY-15
+V[1] = roadY
 V[2] = V[1]+roadEcartY
 V[3] = V[1]+roadEcartY*2
 V[4] = V[1]+roadEcartY*3
+
+voiture.V=2
+
+
+let frameVoiture = 1
+
 
 
 // ---------------------
@@ -124,68 +138,46 @@ let menu=[]
    menu.I= []   
    menu.I[1]= []
    menu.I[2]= []
-   menu.I[3]=[]
 
    menu.I[1][1]= []
    menu.I[1][2]= []
-   menu.I[1][3]= []
+
 
    menu.I[2][1]= []
    menu.I[2][2]= []
    menu.I[2][3]= []
-   menu.I[2][4]= []
-
-
-
-
-   menu.I[1][1] .txt ="How to  play"
-   menu.I[1][1] .x =300
-   menu.I[1][1] .y =200
-
-
-   menu.I[1][2] .txt ="Play"
-   menu.I[1][2] .x =300
-   menu.I[1][2] .y =250
-
-   menu.I[1][3] .txt = "Credit"
-   menu.I[1][3] .x = 300
-   menu.I[1][3] .y = 300
-
-
 
 
    menu.I[2][1] .txt ="Easy"
-   menu.I[2][1] .x =300
-   menu.I[2][1] .y =200
+   menu.I[2][1] .x =600-25
+   menu.I[2][1] .y =150
 
 
 
    menu.I[2][2] .txt ="Medium"
-   menu.I[2][2] .x =300
-   menu.I[2][2] .y =250
+   menu.I[2][2] .x =600-30
+   menu.I[2][2] .y =200
 
 
    menu.I[2][3] .txt = "Hard"
-   menu.I[2][3] .x = 300
-   menu.I[2][3] .y = 300
-
-   menu.I[2][4] .txt = "Back"
-   menu.I[2][4] .x = 300
-   menu.I[2][4] .y = 350
+   menu.I[2][3] .x = 600-25
+   menu.I[2][3] .y = 250
 
 
-   menu.I[3][1]=[]
-   menu.I[3][1] .txt ="Restart"
-   menu.I[3][1] .x =300
-   menu.I[3][1] .y =200
 
-   menu.I[3][2]=[]
-   menu.I[3][2] .txt ="Back to menu"
-   menu.I[3][2] .x =300
-   menu.I[3][2] .y =250
+   menu.I[1][1]=[]
+   menu.I[1][1] .txt ="Restart"
+   menu.I[1][1] .x =600-35
+   menu.I[1][1] .y =150
 
+   menu.I[1][2]=[]
+   menu.I[1][2] .txt ="Choose difficulty"
+   menu.I[1][2] .x =600-90
+   menu.I[1][2] .y =200
 
 
    menu.curseur = 1 
-   menu.statut = 1
+   menu.statut = 2
 
+   let raisonBoom
+   let delayRestart 
