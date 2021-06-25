@@ -9,11 +9,11 @@ let vitesse voiture * 112 /120  = écart obstacle
 */
 
 let voitureSpeed// = 1120  // vitesse de la voiture 
-let TvoitureSpeed =[ null,  784, 1008, 1344]
+let TvoitureSpeed =[ null,  784, 1008, 1344,1344 ]
 
 
 let distObstacle// = 1200   //la distance entre chaque ligne d'obstacle 
-let TdistObstacle =[ null,  840, 1080, 1440]
+let TdistObstacle =[ null,  840, 1080, 1440,720 ]
 
 
 let msgMin
@@ -32,7 +32,9 @@ let segment = []
 
 // A RETIRER ??
 
-for(let S= 1; S<= nbSegment; S++) { segment[S]=[]
+for(let S= 1; S<= 15/*nbSegment*/; S++) 
+{ 
+    segment[S]=[]
     segment [S].nbVoie = null
     segment [S].voieDepart = null
 
@@ -154,22 +156,26 @@ let menu=[]
    menu.I[2][1]= []
    menu.I[2][2]= []
    menu.I[2][3]= []
-
+   menu.I[2][4]= []
 
    menu.I[2][1] .txt ="Easy"
    menu.I[2][1] .x =600-25
-   menu.I[2][1] .y =150
+   menu.I[2][1] .y =125
 
 
 
    menu.I[2][2] .txt ="Medium"
    menu.I[2][2] .x =600-30
-   menu.I[2][2] .y =200
+   menu.I[2][2] .y =175
 
 
    menu.I[2][3] .txt = "Hard"
    menu.I[2][3] .x = 600-25
-   menu.I[2][3] .y = 250
+   menu.I[2][3] .y = 225
+
+   menu.I[2][4] .txt = "Hardcore"
+   menu.I[2][4] .x = 600-50
+   menu.I[2][4] .y = 275
 
 
 

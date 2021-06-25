@@ -1,5 +1,6 @@
 let hasPlaySignal = false;
 
+
 function 
 load()
 {
@@ -113,17 +114,35 @@ function ReglageDifficulte(pDifficult = 0)
 {
     if (pDifficult != 0) 
     {
+        console.log(pDifficult)
+
+    
+        if (pDifficult==4)
+        {
+            nbObstacleSegment = 16
+            nbSegment = 12
+        }
+        else
+        {
+            nbObstacleSegment = 8
+            nbSegment = 6
+        }
+    
         voitureSpeed = TvoitureSpeed [ pDifficult]
         distObstacle = TdistObstacle [ pDifficult]
         distDepart  =  1.30 * distObstacle
+        distMessage= voitureSpeed * 2.5
+
+
+
         distSegment = ( nbObstacleSegment+1)*distObstacle
-        distMessage= voitureSpeed * 2
+        
         distTotal = distSegment*nbSegment + distDepart-(9*70)
 
         if(pDifficult==1)
         {
-            msgMin=9
-            msgMax=9
+            msgMin=10
+            msgMax=10
         }
         else
         {
@@ -343,10 +362,7 @@ function KeyDown(t)   //      ELSE IF A TESTER
         if (t.code == "Enter")
         {
                 if (menu.statut==2)
-               {
-                   if(menu.curseur<=3)
-                   {
-                    
+               {   
                     if (musicOn==true)
                     {
                         musicInstance.val.setParameterByID(fadeOutID, false, false);
@@ -355,7 +371,7 @@ function KeyDown(t)   //      ELSE IF A TESTER
                     ReglageDifficulte(menu.curseur)
                     InitGame()
                     GameMod = "GAME"
-                   }
+                   
                 }
                    else if (menu.statut==1) // GAME OVER
                 {
@@ -685,7 +701,7 @@ function draw(pCtx)
         pCtx.drawImage(imgMainRoad, roadX+ (S*roadEcartX), roadY-128  )
         
     }
-    if(nextObstacle!=1)
+    if(nextObstacle!=1 && nextObstacle< nbSegment*nbObstacleSegment-3 )
     {
     let S=0
     while( S*roadEcartX< distObstacle*1.6)  /*(S*roadEcartX) -distObstacle*0.8 < distObstacle*0.8 */
@@ -714,7 +730,7 @@ function draw(pCtx)
 
     
 
-    for (let S1 = 0; S1 <= 1; S1++)
+    for (let S1 = 0; S1 <= 2; S1++)
     {
         //// THIS OBSTACLE 
         for (let S2 = 0; S2 < 4; S2++)
@@ -736,45 +752,57 @@ function draw(pCtx)
         pCtx.drawImage(voiture.img[Math.floor(frameVoiture) ],voiture.x,voiture.y+Math.floor(Math.floor(frameVoiture-1)*2))
 
 
-      //  voiture.draw(pCtx)
-
-    if (FindNumSegment(nextObstacle) < nbSegment && nextMessage[FindNumSegment(nextObstacle)] > distVoiture && nextMessage[FindNumSegment(nextObstacle)] < distVoiture + distMessage)
-    {
 
 
 
-        //pCtx.drawImage(imgBulle, 50 ,20 )
+      /*FindNumSegment(nextObstacle) < nbSegment &&*/
+        let NOF // nextObstacleFictif
 
-        if (!hasPlaySignal && segment[FindNumSegment(nextObstacle) + 1].nbVoie < 4)
+        if (FindNumObstacle(nextObstacle)==1)
         {
-            signalInstance.val.start();
-            hasPlaySignal = true;
+            NOF = nextObstacle-1
+        }
+        else
+        {
+            NOF = nextObstacle
         }
 
-        bulle.draw(pCtx)
-        // console.log("YOUPI")
-        if (segment[FindNumSegment(nextObstacle) + 1].nbVoie == 2)
-        {
-            if (segment[FindNumSegment(nextObstacle) + 1].voieDepart == 1)
-            { 
-                pCtx.drawImage(imgNupe, 155+95, 28+12)
-                pCtx.drawImage(imgNupe, 155+95, 58+12)
-            }
-            else if (segment[FindNumSegment(nextObstacle) + 1].voieDepart == 2)
-            {
-                pCtx.drawImage(imgNupe, 155+95, 28+12)
-                pCtx.drawImage(imgNupe, 155+95, 118+12)
 
-            }
-            else
-            {
-                pCtx.drawImage(imgNupe, 155+95, 88+12)
-                pCtx.drawImage(imgNupe, 155+95, 118+12)
-            }
-        }
-        else if (segment[FindNumSegment(nextObstacle) + 1].nbVoie == 3)
+        if (  ( nextMessage[FindNumSegment(NOF)]   > distVoiture && nextMessage[FindNumSegment(NOF)] < distVoiture + distMessage)
+        /*||    ( FindNumObstacle(NOF)==1 && nextMessage[FindNumSegment(NOF)-1] < distVoiture + distMessage)*/)
         {
-            if (segment[FindNumSegment(nextObstacle) + 1].voieDepart == 1)
+
+            //pCtx.drawImage(imgBulle, 50 ,20 )
+
+            if (!hasPlaySignal && segment[FindNumSegment(NOF) + 1].nbVoie < 4)
+            {
+                signalInstance.val.start();
+                hasPlaySignal = true;
+            }
+
+            bulle.draw(pCtx)
+
+            if (segment[FindNumSegment(NOF) + 1].nbVoie == 2)
+            {
+                if (segment[FindNumSegment(NOF) + 1].voieDepart == 1)
+                { 
+                    pCtx.drawImage(imgNupe, 155+95, 28+12)
+                    pCtx.drawImage(imgNupe, 155+95, 58+12)
+                }
+                else if (segment[FindNumSegment(NOF) + 1].voieDepart == 2)
+                {
+                    pCtx.drawImage(imgNupe, 155+95, 28+12)
+                    pCtx.drawImage(imgNupe, 155+95, 118+12)
+                }
+                else
+                {
+                    pCtx.drawImage(imgNupe, 155+95, 88+12)
+                    pCtx.drawImage(imgNupe, 155+95, 118+12)
+                }
+        }
+        else if (segment[FindNumSegment(NOF) + 1].nbVoie == 3)
+        {
+            if (segment[FindNumSegment(NOF) + 1].voieDepart == 1)
             {
                 pCtx.drawImage(imgNupe, 155+95, 28+12)         
             }
