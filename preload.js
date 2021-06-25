@@ -1,6 +1,6 @@
 let musicOn = true
 
-let nbObstacleSegment = 6 // le nb de ligne d'obstacle à chaque segment
+let nbObstacleSegment = 8 // le nb de ligne d'obstacle à chaque segment
 
 
 
@@ -16,14 +16,16 @@ let distObstacle// = 1200   //la distance entre chaque ligne d'obstacle
 let TdistObstacle =[ null,  840, 1080, 1440]
 
 
+let msgMin
+let msgMax
 
 
 let distMessage   //=2000 // la distance sur laquelle le message est affiché peut être convertit en durée:
     //distMessage= voitureSpeed * 2 //  = 2 secondes d'affichage 
 
-let apparitionMessage=  RandomINT(4,7)/10  // apparition du message des mines, ici le message apparrait entre 50% et 80% du segment parcouru 
+ // apparition du message des mines, ici le message apparrait entre 50% et 80% du segment parcouru 
 
-let nbSegment = 8
+let nbSegment = 6
 
 let segment = []
 
@@ -47,6 +49,11 @@ let imgRoad
 let imgBarriere
 let imgNupe
 let imgTitre
+let imgInterSegmentW
+let imgInterSegmentY
+
+
+
 
 let roadX= 0
 let roadY= 175+128
@@ -58,7 +65,7 @@ let distVoiture //
 let distDepart  //=  1.2 * distObstacle// distObstacle*0.5   --1.2
 let distSegment //= ( nbObstacleSegment+1.5)*distObstacle
 let nextObstacle //
-let nextMessage //
+let nextMessage  //
 
 let decalWin = 0
 

@@ -1,6 +1,7 @@
 let hasPlaySignal = false;
 
-function load()
+function 
+load()
 {
     document.addEventListener("keydown", KeyDown, false)
     document.addEventListener("keyup", KeyUp, false)  
@@ -11,10 +12,16 @@ function load()
     imgObstacle.src = "sprite/obstacle.png" 
     imgMainRoad = new Image ()
     imgMainRoad.src = "sprite/route.png" 
+    imgInterRoad = new Image()
+    imgInterRoad.src = "sprite/route_blanc.png"
     imgNupe = new Image ()
     imgNupe.src = "sprite/nupe.png" 
-    imgInterSegment = new Image()
-    imgInterSegment.src = "sprite/interSegment.png"
+
+
+    imgInterSegmentW = new Image()
+    imgInterSegmentW.src = "sprite/interSegment_blanc.png"
+    imgInterSegmentY = new Image()
+    imgInterSegmentY.src = "sprite/interSegment_jaune.png"
     imgBarriere = new Image()
     imgBarriere.src = "sprite/barriere.png"
     
@@ -38,31 +45,12 @@ for (let S=1; S<=9;S++)
     voitureBoom.img[S].src = "sprite/boom/boom"+S+".png"
 }
 
-/*
-    voitureBoom.img[1] = new Image()
-    voitureBoom.img[2] = new Image()
-    voitureBoom.img[3] = new Image()
-    voitureBoom.img[1].src = "sprite/boom/boom1.png"
-    voitureBoom.img[2].src = "sprite/boom/boom1.png"
-    voitureBoom.img[3].src = "sprite/boom/boom1.png"
-    voitureBoom.img[4].src = "sprite/boom/boom1.png"
-    voitureBoom.img[5].src = "sprite/boom/boom1.png"
-    voitureBoom.img[6].src = "sprite/boom/boom1.png"
-    voitureBoom.img[7].src = "sprite/boom/boom1.png"
-    voitureBoom.img[8].src = "sprite/boom/boom1.png"
-    voitureBoom.img[9].src = "sprite/boom/boom1.png"
-*/
-
     voiture.x=30
     voiture.y=V [voiture.V]
 
-    //voiture = new Sprite ("sprite/voiture.png",30,V[2] )
 
 
     bulle = new Sprite ("sprite/bulle.png",50,20 )
-
-
-
     fond1_1 = new Sprite ("sprite/fond 2/C1-1.png")
     fond1_2 = new Sprite ("sprite/fond 2/C1-2.png",1000)
     fond2_1 = new Sprite ("sprite/fond 2/C2-1.png")
@@ -87,13 +75,6 @@ for (let S=1; S<=9;S++)
     PlaceCursor()
 
     InitGame()
-
-    for (let S = 1; S <= 50; S++)
-    {
-        //console.log ( FindNumSegment(S),FindNumObstacle(S), segment [FindNumSegment(S)].voieDepart, segment[FindNumSegment(S)].nbVoie  ) 
-        //console.log ( B01[segment[ FindNumSegment(S)][FindNumObstacle(S)]] [0], B01[segment[FindNumSegment(S)][FindNumObstacle(S)]] [1], B01[segment[FindNumSegment(S)][FindNumObstacle(S)]] [2], B01[segment[FindNumSegment(S)][FindNumObstacle(S)]] [3])
-        //console.log ( CalObsPosX(S) )
-    }
 }
 
 
@@ -101,6 +82,7 @@ function InitGame()
 {   
     voiture.V = 2
     voiture.y = V[voiture.V]
+
     roadX= 0
     fond1_1.x = 0
     fond1_2.x = 1000
@@ -112,34 +94,42 @@ function InitGame()
     fond4_2.x = 1000
 
     frameVoiture = 1
-    CreateMap()
     distVoiture = 0
     nextObstacle = 1
+
     hasPlaySignal = false;
+
+    CreateMap()
+
+    nextMessage = []
+    for (let S = 1 ; S <= nbSegment; S++ )
+    {
+        nextMessage[S] = distDepart + distSegment * (S-1) + distSegment * RandomINT (msgMin,msgMax)/10
+        //console.log (nextMessage[S])
+    }
 }
 
 function ReglageDifficulte(pDifficult = 0)
 {
     if (pDifficult != 0) 
     {
-    voitureSpeed = TvoitureSpeed [ pDifficult]
-    distObstacle = TdistObstacle [ pDifficult]
-    
-    distDepart  =  1.30 * distObstacle
-    distSegment = ( nbObstacleSegment+1)*distObstacle
-    distMessage= voitureSpeed * 2
-    distTotal = distSegment*nbSegment + distDepart-(9*70)
+        voitureSpeed = TvoitureSpeed [ pDifficult]
+        distObstacle = TdistObstacle [ pDifficult]
+        distDepart  =  1.30 * distObstacle
+        distSegment = ( nbObstacleSegment+1)*distObstacle
+        distMessage= voitureSpeed * 2
+        distTotal = distSegment*nbSegment + distDepart-(9*70)
 
-
-
-    console.log (distTotal)
-    }
-
-    nextMessage = []
-
-    for (let S = 1 ; S <= nbSegment; S++ )
-    {
-        nextMessage[S] = distDepart + distSegment * (S-1) + distSegment * apparitionMessage
+        if(pDifficult==1)
+        {
+            msgMin=9
+            msgMax=9
+        }
+        else
+        {
+            msgMin = 3
+            msgMax = 8
+        }
     }
 
 }
@@ -363,6 +353,7 @@ function KeyDown(t)   //      ELSE IF A TESTER
                         musicInstance.val.start(); 
                     }
                     ReglageDifficulte(menu.curseur)
+                    InitGame()
                     GameMod = "GAME"
                    }
                 }
@@ -379,8 +370,7 @@ function KeyDown(t)   //      ELSE IF A TESTER
                     if(menu.curseur==2)
                     {
                         InitGame()
-                        GameMod = 
-                        "MENU"
+                        GameMod = "MENU"
                         menu.statut=2
                         menu.curseur=1
                         PlaceCursor()
@@ -553,8 +543,6 @@ function update()
             frameVoiture-=2
         }
 
-        console.log(fond1_2.largeur)
-
         fond1_1.x -= (fond1_2.largeur-1200)/(distTotal/voitureSpeed )*dt
         fond1_2.x -= (fond1_2.largeur-1200)/(distTotal/voitureSpeed )*dt
 
@@ -695,10 +683,34 @@ function draw(pCtx)
     for (let S= 0; S<=3; S++)
     {
         pCtx.drawImage(imgMainRoad, roadX+ (S*roadEcartX), roadY-128  )
+        
     }
+    if(nextObstacle!=1)
+    {
+    let S=0
+    while( S*roadEcartX< distObstacle*1.6)  /*(S*roadEcartX) -distObstacle*0.8 < distObstacle*0.8 */
+    {
+        if(FindNumObstacle(nextObstacle)>5)
+        {
+            pCtx.drawImage(imgInterRoad, (FindNumSegment(nextObstacle-1) ) * distSegment + distDepart -distObstacle*0.8+ (S*roadEcartX) - distVoiture, roadY)
+        } 
+        else
+        {
+            pCtx.drawImage(imgInterRoad, (FindNumSegment(nextObstacle) - 1) * distSegment + distDepart -distObstacle*0.8+ (S*roadEcartX) - distVoiture, roadY)
+        }
+        
+        S++  
+    }
+    
+
+        pCtx.drawImage(imgInterSegmentW, (FindNumSegment(nextObstacle) - 1) * distSegment + distDepart +distObstacle*0.8 - distVoiture, roadY)
 
 
-    pCtx.drawImage(imgInterSegment, (FindNumSegment(nextObstacle) - 1) * distSegment + distDepart +distObstacle*0.8 - distVoiture, roadY)
+        pCtx.drawImage(imgInterSegmentY, (FindNumSegment(nextObstacle-1) ) * distSegment + distDepart -distObstacle*0.8 - distVoiture, roadY)
+        pCtx.drawImage(imgInterSegmentY, (FindNumSegment(nextObstacle) -1 ) * distSegment + distDepart -distObstacle*0.8 - distVoiture, roadY)
+    }
+   
+    
 
     
 
