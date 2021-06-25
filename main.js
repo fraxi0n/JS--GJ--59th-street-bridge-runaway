@@ -8,6 +8,7 @@ let maintenant
 
 function run(){
 
+    requestAnimationFrame(run);
     maintenant = Date.now ()
     dt = (maintenant-derniereUpdate)/1000
     derniereUpdate= maintenant
@@ -19,7 +20,8 @@ function run(){
 function init() {
 
     load();
-    interval= setInterval(run,1000/60);
+    requestAnimationFrame(run);
+    //interval= setInterval(run,1000/60);
 
 }
 
