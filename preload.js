@@ -1,65 +1,122 @@
-let musicOn = true
+let hasPlaySignal = false;
 
-let nbObstacleSegment = 8 // le nb de ligne d'obstacle à chaque segment
-
-
-
-/* la vitesse et la distance doivent etre modifier proportionelement pour rester en tempo
-let vitesse voiture * 112 /120  = écart obstacle
-*/
 
 let voitureSpeed// = 1120  // vitesse de la voiture 
-let TvoitureSpeed =[ null,  784, 1008, 1344,1344 ]
+let TvoitureSpeed =[ 784, 1008, 1344, 1344 ] // difficulté - none - easy - medium - hard - hardcore
 
 
 let distObstacle// = 1200   //la distance entre chaque ligne d'obstacle 
-let TdistObstacle =[ null,  840, 1080, 1440,720 ]
+let TdistObstacle =[ 840, 1080, 1440,720 ] // difficulté - none - easy - medium - hard - hardcore
+
+/* la vitesse et la distance doivent etre modifier proportionellement pour rester en tempo
+ vitesse voiture * 112 /120  = écart obstacle
+*/
 
 
+
+let distMessage   // la distance sur laquelle le message est affiché 
+
+
+// A NE PAS RETIRER CORRESPOND A QUOI?? -- créneaud sur lequell le message peut apparaitre
 let msgMin
 let msgMax
 
+let nbSegment = 12 // un segment correspond a une portion marqué en jaune
 
-let distMessage   //=2000 // la distance sur laquelle le message est affiché peut être convertit en durée:
-    //distMessage= voitureSpeed * 2 //  = 2 secondes d'affichage 
-
- // apparition du message des mines, ici le message apparrait entre 50% et 80% du segment parcouru 
-
-let nbSegment = 6
-
-let segment = []
-
+let segment/* = []
 
 // A RETIRER ??
 
-for(let S= 1; S<= 15/*nbSegment*/; S++) 
+for(let S= 1; S<=nbSegment ; S++) 
 { 
     segment[S]=[]
-    segment [S].nbVoie = null
-    segment [S].voieDepart = null
-
 }
+*/
+let nbObstacleSegment = 16 // le nb de ligne d'obstacle à chaque segment
+
+
+let skinObstacle = [] 
+
 
 
 //--------------------------------------------------------------------
 
-let GameMod = "CLICTOPLAY"
-
-
-let imgObstacle
-let imgRoad
-let imgBarriere
-let imgNupe
-let imgTitre
-let imgInterSegmentW
-let imgInterSegmentY
 
 
 
 
-let roadX= 0
-let roadY= 175+128
-let roadEcartX = 400-1
+// A changer pour les perf
+let GameMod = 1
+
+
+let imgObstacle = []
+
+let imgMainRoad = new Image 
+let imgInterRoad = new Image 
+
+let imgBarriere = new Image 
+let imgInterSegmentW = new Image 
+let imgInterSegmentY = new Image 
+
+let imgTitre = new Image 
+let imgCurseur = new Image
+let curseur=[]
+
+let imgBulle = new Image
+let imgNupe = new Image 
+
+
+
+let imgVoitureIntro = []
+
+let imgIntroPlanche = new Image 
+
+let imgStart1 = new Image 
+let imgStart2 = new Image 
+
+let imgEnd1 = new Image 
+let imgEnd2 = new Image 
+
+let imgBlack = new Image
+let imgTuto2_1 = new Image
+let imgTuto3_1 = new Image
+
+
+
+fond1_1 = new Image
+fond1_2 = new Image
+fond2_1 = new Image
+fond2_2 = new Image
+fond3_1 = new Image
+fond3_2 = new Image
+fond4_1 = new Image
+fond4_2 = new Image
+fond5   = new Image
+
+let fond1_1X
+let fond1_2X
+let fond2_1X
+let fond2_2X
+let fond3_1X 
+let fond3_2X 
+let fond4_1X 
+let fond4_2X 
+
+
+let fond1_2W = 2000
+let fond2_2W = 1747
+let fond3_2W = 1509
+let fond4_2W = 1336
+
+
+
+
+
+// position de la route 
+
+let roadX 
+let roadY=  303
+let roadEcartX = 399
 let roadEcartY = 80
 
 let distTotal
@@ -81,12 +138,15 @@ let voiture= []
 voiture.img=[]
 
 let V=[]
-V[1] = roadY
+V[1] = roadY-10
 V[2] = V[1]+roadEcartY
 V[3] = V[1]+roadEcartY*2
 V[4] = V[1]+roadEcartY*3
 
 voiture.V=2
+
+voiture.xGame = 30
+voiture.xIntro = -200
 
 
 let frameVoiture = 1
@@ -153,31 +213,35 @@ let menu=[]
    menu.I[1][2]= []
 
 
+
    menu.I[2][1]= []
    menu.I[2][2]= []
    menu.I[2][3]= []
    menu.I[2][4]= []
+   menu.I[2][5]= []
 
-   menu.I[2][1] .txt ="Easy"
-   menu.I[2][1] .x =600-25
-   menu.I[2][1] .y =125
-
-
-
-   menu.I[2][2] .txt ="Medium"
-   menu.I[2][2] .x =600-30
-   menu.I[2][2] .y =175
+   
+   menu.I[2][1] .txt ="how to play"
+   menu.I[2][1] .x = 600-60
+   menu.I[2][1] .y =125-25
 
 
-   menu.I[2][3] .txt = "Hard"
-   menu.I[2][3] .x = 600-25
-   menu.I[2][3] .y = 225
-
-   menu.I[2][4] .txt = "Hardcore"
-   menu.I[2][4] .x = 600-50
-   menu.I[2][4] .y = 275
+   menu.I[2][2] .txt ="Easy"
+   menu.I[2][2] .x = 600-25
+   menu.I[2][2] .y =175-30
 
 
+   menu.I[2][3] .txt = "Medium"
+   menu.I[2][3] .x = 600-30
+   menu.I[2][3] .y = 225-35
+
+   menu.I[2][4] .txt = "Hard"
+   menu.I[2][4] .x = 600-25
+   menu.I[2][4] .y = 275-40
+
+   menu.I[2][5] .txt = "Hardcore"
+   menu.I[2][5] .x = 600-50
+   menu.I[2][5] .y = 325-45
 
    menu.I[1][1]=[]
    menu.I[1][1] .txt ="Restart"
@@ -185,8 +249,8 @@ let menu=[]
    menu.I[1][1] .y =150
 
    menu.I[1][2]=[]
-   menu.I[1][2] .txt ="Choose difficulty"
-   menu.I[1][2] .x =600-90
+   menu.I[1][2] .txt ="Back to menu"
+   menu.I[1][2] .x =600-60
    menu.I[1][2] .y =200
 
 
@@ -195,3 +259,4 @@ let menu=[]
 
    let raisonBoom
    let timer 
+

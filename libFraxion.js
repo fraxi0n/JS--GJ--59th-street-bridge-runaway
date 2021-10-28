@@ -64,3 +64,4 @@ pCtx.drawImage(this.img, this.x, this.y);
 }
 
 }
+

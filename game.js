@@ -1,554 +1,251 @@
-let hasPlaySignal = false;
+/*
+GameMod :
+1 - click to play
+2 - menu
+3 - tuto
+4 - intro
+5 - game
+6 - over 
+7 - win 
+*/
 
 
-function 
-load()
+
+
+
+function load() 
 {
     document.addEventListener("keydown", KeyDown, false)
     document.addEventListener("keyup", KeyUp, false)  
     document.addEventListener("mousedown", mouseDown)
 
+  
 
-    imgObstacle = new Image ()
-    imgObstacle.src = "sprite/obstacle.png" 
-    imgMainRoad = new Image ()
-    imgMainRoad.src = "sprite/route.png" 
-    imgInterRoad = new Image()
-    imgInterRoad.src = "sprite/route_blanc.png"
-    imgNupe = new Image ()
+
+
+
+    imgMainRoad.src = "sprite/bridge/route.png" 
+    imgInterRoad.src = "sprite/bridge/route_blanc.png"
+
+    imgInterSegmentW.src = "sprite/bridge/interSegment_blanc.png"
+    imgInterSegmentY.src = "sprite/bridge/interSegment_jaune.png"
+
+    imgBarriere.src = "sprite/bridge/barriere.png"
+
+    imgStart1.src = "sprite/bridge/start_1.png"
+    imgStart2.src = "sprite/bridge/start_2.png"
+    imgEnd1.src = "sprite/bridge/end_1.png"
+    imgEnd2.src = "sprite/bridge/end_2.png"
+
+    imgBulle.src   = "sprite/bulle.png"
     imgNupe.src = "sprite/nupe.png" 
 
+    imgBlack.src = "sprite/tuto/black.png"
+    imgTuto2_1.src = "sprite/tuto/2-1.png"
+    imgTuto3_1.src = "sprite/tuto/3-1.png"
 
-    imgInterSegmentW = new Image()
-    imgInterSegmentW.src = "sprite/interSegment_blanc.png"
-    imgInterSegmentY = new Image()
-    imgInterSegmentY.src = "sprite/interSegment_jaune.png"
-    imgBarriere = new Image()
-    imgBarriere.src = "sprite/barriere.png"
+
+    imgIntroPlanche.src = "sprite/intro/ees_planche.png"
+
+
+    for(S=1; S<=74; S++)
+    {
+        imgVoitureIntro[S] = new Image()
+        imgVoitureIntro[S].src = "sprite/intro/ees_"+S+".png"
+    }
+
     
+    for(S=1; S<=4; S++)
+    {
+        imgObstacle[S] = new Image()
+        imgObstacle[S].src = "sprite/obstacle/obstacle_"+S+".png"
+    }
 
 
+    for (let S=1; S<=9;S++)
+    {
+        voitureBoom.img[S] = new Image()
+        voitureBoom.img[S].src = "sprite/boom/boom"+S+".png"
+    }
 
+    voitureCrash.img[1] = new Image()
+    voitureCrash.img[2] = new Image()
+    voitureCrash.img[1].src = "sprite/boom/crash1.png"
+    voitureCrash.img[2].src = "sprite/boom/crash2.png"
 
     voiture.img[1] = new Image()
     voiture.img[2] = new Image()
     voiture.img[1].src = "sprite/voiture1.png"
     voiture.img[2].src = "sprite/voiture2.png"
     
-    voitureCrash.img[1] = new Image()
-    voitureCrash.img[2] = new Image()
-    voitureCrash.img[1].src = "sprite/crash1.png"
-    voitureCrash.img[2].src = "sprite/crash2.png"
 
-for (let S=1; S<=9;S++)
-{
-    voitureBoom.img[S] = new Image()
-    voitureBoom.img[S].src = "sprite/boom/boom"+S+".png"
-}
 
-    voiture.x=30
+    voiture.x=-200
     voiture.y=V [voiture.V]
 
 
-
-    bulle = new Sprite ("sprite/bulle.png",50,20 )
-    fond1_1 = new Sprite ("sprite/fond 2/C1-1.png")
-    fond1_2 = new Sprite ("sprite/fond 2/C1-2.png",1000)
-    fond2_1 = new Sprite ("sprite/fond 2/C2-1.png")
-    fond2_2 = new Sprite ("sprite/fond 2/C2-2.png",1000)
-    fond3_1 = new Sprite ("sprite/fond 2/C3-1.png")
-    fond3_2 = new Sprite ("sprite/fond 2/C3-2.png",1000)
-    fond4_1 = new Sprite ("sprite/fond 2/C4-1.png")
-    fond4_2 = new Sprite ("sprite/fond 2/C4-2.png",1000)
-    fond5 = new Sprite ("sprite/fond 2/C5.png")
-
-    fond1_2.largeur=2000
-    fond2_2.largeur=1747
-    fond3_2.largeur=1509
-    fond4_2.largeur=1336
+    fond1_1.src = "sprite/fond 2/C1-1.png"
+    fond1_2.src = "sprite/fond 2/C1-2.png"//,1000
+    fond2_1.src  = "sprite/fond 2/C2-1.png"
+    fond2_2.src  = "sprite/fond 2/C2-2.png"//,1000
+    fond3_1.src  = "sprite/fond 2/C3-1.png"
+    fond3_2.src  = "sprite/fond 2/C3-2.png"//,1000
+    fond4_1.src  = "sprite/fond 2/C4-1.png"
+    fond4_2.src  = "sprite/fond 2/C4-2.png"//,1000
+    fond5.src    = "sprite/fond 2/C5.png"
 
 
-
-    curseur = new Sprite ("sprite/curseur.png" )
-    titre = new Sprite("sprite/titre.png",200,65)
-
+    imgCurseur.src  = "sprite/curseur.png" 
+    imgTitre.src  = "sprite/titre.png" 
 
     PlaceCursor()
 
-    InitGame()
-}
-
-
-function InitGame()
-{   
-    voiture.V = 2
-    voiture.y = V[voiture.V]
-
-    roadX= 0
-    fond1_1.x = 0
-    fond1_2.x = 1000
-    fond2_1.x = 0
-    fond2_2.x = 10000
-    fond3_1.x = 0
-    fond3_2.x = 1000
-    fond4_1.x = 0
-    fond4_2.x = 1000
-
-    frameVoiture = 1
-    distVoiture = 0
-    nextObstacle = 1
-
-    hasPlaySignal = false;
-
-    CreateMap()
-
-    nextMessage = []
-    for (let S = 1 ; S <= nbSegment; S++ )
-    {
-        nextMessage[S] = distDepart + distSegment * (S-1) + distSegment * RandomINT (msgMin,msgMax)/10
-        //console.log (nextMessage[S])
-    }
-}
-
-function ReglageDifficulte(pDifficult = 0)
-{
-    if (pDifficult != 0) 
-    {
-        console.log(pDifficult)
-
-    
-        if (pDifficult==4)
-        {
-            nbObstacleSegment = 16
-            nbSegment = 12
-        }
-        else
-        {
-            nbObstacleSegment = 8
-            nbSegment = 6
-        }
-    
-        voitureSpeed = TvoitureSpeed [ pDifficult]
-        distObstacle = TdistObstacle [ pDifficult]
-        distDepart  =  1.30 * distObstacle
-        distMessage= voitureSpeed * 2.5
-
-
-
-        distSegment = ( nbObstacleSegment+1)*distObstacle
-        
-        distTotal = distSegment*nbSegment + distDepart-(9*70)
-
-        if(pDifficult==1)
-        {
-            msgMin=10
-            msgMax=10
-        }
-        else
-        {
-            msgMin = 3
-            msgMax = 8
-        }
-    }
-
-}
-
-
-
-function CreateMap()
-{
-//segment =[]
-
-    function CreateSegment (pNumSegment,  pNBvoieSegment, pDepartVoieSegment)
-    {
-        segment[pNumSegment] = []
-        for (let S2 = 1; S2 <= nbObstacleSegment; S2++ )
-        {
-            segment[pNumSegment][S2] = SG[pNBvoieSegment][pDepartVoieSegment][RandomINT(1, SGindex[pNBvoieSegment])]
-            if (pNBvoieSegment == 2 && S2 > 1)
-            {
-                if (B01[segment[pNumSegment][S2]][pDepartVoieSegment] == B01[segment[pNumSegment][S2-1]][pDepartVoieSegment])
-                {
-                    segment[pNumSegment][S2] = SG[pNBvoieSegment][pDepartVoieSegment][RandomINT(1, SGindex[pNBvoieSegment])]
-                }
-            }
-            if (pNBvoieSegment >= 3)
-            {
-                if (SG[pNBvoieSegment][pDepartVoieSegment].PO.includes(segment[pNumSegment][S2]))
-                {
-                    segment[pNumSegment][S2] = SG[pNBvoieSegment][pDepartVoieSegment][RandomINT(1, SGindex[pNBvoieSegment])]
-
-                    if (pNBvoieSegment == 4)
-                    {
-                        if  (segment[pNumSegment][S2] == 1||segment[pNumSegment][S2] == 2||segment[pNumSegment][S2] == 3||segment[pNumSegment][S2] == 4)
-                        {
-                            segment[pNumSegment][S2] = SG[pNBvoieSegment][pDepartVoieSegment][RandomINT(1, SGindex[pNBvoieSegment])]
-                        }
-                    }
-                }
-            }
-        }  
-        segment[pNumSegment].voieDepart = pDepartVoieSegment
-        segment[pNumSegment].nbVoie= pNBvoieSegment
-    }
-        
-    for (let S = 1; S <= nbSegment; S++)
-    {
-        let R2
-        /////////-NB de voies 
-        let R1 = RandomINT(1,100)
-        if (R1 <= 25)
-        {
-            R1 = 2
-        }
-        else if (R1 <= 65)
-        {
-            R1 = 3
-        }
-        else
-        {
-            R1 = 4
-        }
-        // 
-        if (S == 1)
-        {
-            R1 = 4
-        }
-        else if(segment[S-1].nbVoie == R1)
-        { 
-            R1 = RandomINT(1,100) 
-            if (R1<= 25)
-            {
-                R1 = 2
-            }
-            else if (R1 <= 65)
-            {
-                R1 = 3
-            }
-            else
-            {
-                R1 = 4
-            }
-        }
-       
-        segment[S].nbVoie = R1
-        if (R1 == 2)
-        {
-            R2 = RandomINT(1,3)
-        }
-        else if (R1 == 3)
-        {
-            R2 = RandomINT(1,2)
-        }
-        else
-        {
-            R2 = 1
-        }
-        segment[S].voieDepart = R2
-        CreateSegment(S,R1,R2)
-    }
-//  -------------- SEGMENT D'ARRIVEE VIDE
-
-    segment [nbSegment+1] = []
-    for (S = 1; S <= nbObstacleSegment ; S++ )
-    {
-        segment[nbSegment+1][S]= 0
-    } 
-        
-    segment[nbSegment+1].nbVoie=4
-    segment[nbSegment+1].voieDepart=1
-
-}
-
-
-function BOOM(pRaison)
-{
-    frameVoiture=1
-    timer=0.5
-    raisonBoom = pRaison
-    menu.curseur=1
-    menu.statut=1
-    PlaceCursor()
-    if (pRaison == "obstacle")
-    {
-        obstacleInstance.val.start();
-    }
-    if (pRaison == "mine")
-    {
-        explosionInstance.val.start();
-    }
-    GameMod = "OVER"
-    hasPlaySignal = false;
-    // console.log ("BOOM" ,nextObstacle,  Math.floor( distVoiture))
-}
-
-
-function FindNumSegment(pNumObstacle)
-{ 
-    let x
-    if (pNumObstacle%nbObstacleSegment == 0)
-    {
-        x = Math.floor(pNumObstacle/nbObstacleSegment)
-    }
-    else
-    {
-        x = Math.floor(pNumObstacle/nbObstacleSegment) + 1
-    }
-    return x
-}
-
-
-function FindNumObstacle(pNumObstacle)
-{
-    let x
-
-    if (pNumObstacle % nbObstacleSegment == 0)
-    {
-        x = nbObstacleSegment
-    }
-    else
-    {
-        x = pNumObstacle % nbObstacleSegment
-    }
-    return x
-}
-
-
-function CalObsPosX(pNumObstacle)
-{
-    let value = distDepart+distSegment * (FindNumSegment(pNumObstacle) - 1) + distObstacle * FindNumObstacle(pNumObstacle) - distVoiture
-    return value
-}
-
-
-function PlaceCursor()
-{
-    curseur.x =  menu.I[menu.statut][menu.curseur].x-20
-    curseur.y =  menu.I[menu.statut][menu.curseur].y-10
-}
-
-
-function KeyDown(t)   //      ELSE IF A TESTER 
-{
-    if (t.code != "F12")
-    {
-        t.preventDefault()
-    }
-
-    if (GameMod == "MENU" || GameMod == "OVER" )
-    {
-
-        if (GameMod == "OVER")
-        {
-            explosionInstance.val.stop(FMOD.STUDIO_STOP_ALLOWFADEOUT);
-            obstacleInstance.val.stop(FMOD.STUDIO_STOP_ALLOWFADEOUT);
-        }
-
-        if (t.code == "ArrowUp")
-         {
-            menu.curseur -- 
-            if (menu.curseur==0){ menu.curseur= menu.I[menu.statut].length -1 }
-            PlaceCursor()
-         }
-        if (t.code == "ArrowDown")
-        {
-            menu.curseur ++
-            if (menu.curseur==menu.I[menu.statut].length){ menu.curseur=1 }
-             PlaceCursor()
-        }
-
-        //console.log(menu.statut,menu.curseur)
-
-        if (t.code == "Enter")
-        {
-                if (menu.statut==2)
-               {   
-                    if (musicOn==true)
-                    {
-                        musicInstance.val.setParameterByID(fadeOutID, false, false);
-                        musicInstance.val.start(); 
-                    }
-                    ReglageDifficulte(menu.curseur)
-                    InitGame()
-                    GameMod = "GAME"
-                   
-                }
-                   else if (menu.statut==1) // GAME OVER
-                {
-                    
-               
-                    if(menu.curseur==1)
-                    {
-                        InitGame()
-                        ReglageDifficulte()
-                        GameMod = "GAME"
-                    }
-                    if(menu.curseur==2)
-                    {
-                        InitGame()
-                        GameMod = "MENU"
-                        menu.statut=2
-                        menu.curseur=1
-                        PlaceCursor()
-                    }
-
-                }
-
-        }
-            
-
-    }
-        
-    
-
-
-
-    else if (GameMod == "GAME")
-    {
-        if (t.code == "ArrowUp" && voiture.V > 1)
-        {
-            voiture.V = voiture.V - 1
-         //   voiture.y = V[voiture.V]
-        }
-        if (t.code == "ArrowDown" && voiture.V < 4)
-        {
-            voiture.V = voiture.V + 1
-          //  voiture.y = V[voiture.V]
-        }
-    }
-
-   else if(GameMod=="TUTO"||GameMod=="CREDIT")
-    {
-        if (t.code == "Enter")
-        {
-            GameMod = "MENU"                
-            menu.statut=1
-            menu.curseur=1
-            PlaceCursor()
-
-        }
-
-
-
-
-    }
-
-
-
-
-
-
-} 
-
-
-function mouseDown()// CLICK TO PLAY
-{
-    if (GameMod == "CLICTOPLAY")
-    {
-        GameMod="MENU"
-    }
-    
-}
-
+    InitMenu()
+} //fin load
 
 
 function update()
 {
-
-
-    if(GameMod == "OVER")
+    if (GameMod == 3)
     {
-        if (timer>0)
+        if (FreezeTUTO() == true)
         {
-            timer-= dt
-            menu.curseur=1
-            PlaceCursor()
+
         }
-
-
-        if(raisonBoom == "obstacle")
+        else
         {
-            
-            if (frameVoiture<2)
+            frameVoiture += 5*dt
+            if(frameVoiture>= 3 )  { frameVoiture-=2 }
+    
+            fond1_1X -= (fond1_2W-1200)/(distTotal/voitureSpeed )*dt
+            fond1_2X -= (fond1_2W-1200)/(distTotal/voitureSpeed )*dt
+    
+            fond2_1X -= (fond2_2W-1200)/(distTotal/voitureSpeed )*dt
+            fond2_2X -= (fond2_2W-1200)/(distTotal/voitureSpeed )*dt
+    
+            fond3_1X-= (fond3_2W-1200)/(distTotal/voitureSpeed )*dt
+            fond3_2X-= (fond3_2W-1200)/(distTotal/voitureSpeed )*dt
+    
+            fond4_1X-= (fond4_2W-1200)/(distTotal/voitureSpeed )*dt
+            fond4_2X-= (fond4_2W-1200)/(distTotal/voitureSpeed )*dt
+    
+    
+            distVoiture = distVoiture + voitureSpeed * dt
+            roadX = roadX- voitureSpeed * dt
+    
+            if (roadX + roadEcartX <= 0)
             {
-                frameVoiture += 12*dt
-            } 
-
-        }
-
-        if(raisonBoom == "mine")
-        {
-            if (voiture.y < V[voiture.V]){
+                roadX = roadX + roadEcartX
+            }
+    
+            if (voiture.y < V[voiture.V])
+            {
                 voiture.y+= voitureSpeed*1*dt
                 if (voiture.y >= V[voiture.V]){voiture.y = V[voiture.V]}
             }
-       
-            
-            if (voiture.y > V[voiture.V]){
-                voiture.y-= voitureSpeed*1*dt
-                if (voiture.y <= V[voiture.V]){voiture.y = V[voiture.V]}
-            }
-
-            if (voiture.y == V[voiture.V]){
-                if (frameVoiture<=6)
-                {
-                    frameVoiture += 13*dt
-                }
-                else
-                {
-                    frameVoiture += 8*dt
-                }
-                
-            }
-
-
-
-            
-            if (frameVoiture>=10)
+    
+         
+    
+         if (voiture.y > V[voiture.V]){
+             voiture.y-= voitureSpeed*1*dt
+             if (voiture.y <= V[voiture.V]){voiture.y = V[voiture.V]}
+         }
+    
+    
+    
+    
+    
+            if (CalObsPosX(nextObstacle) < 0 - 156/* obstacle width*/  )
             {
-                frameVoiture-= 3
-            } 
-        }
-
-    }
-
-    if (GameMod == "WIN")
-    {
-        timer -= dt
-        if(timer<=0)
-        {
-            GameMod="MENU"
-            menu.statut=2
-            voiture.x=30
-            decalWin=0
-            InitGame()
-        }
-
-        if(decalWin< voitureSpeed) 
-        {
-            decalWin += dt*300
-            if (decalWin> voitureSpeed)
-            {
-                decalWin=voitureSpeed
+                nextObstacle = nextObstacle + 1
+                if(FindNumSegment(nextObstacle)== nbSegment+1) 
+                {
+                    GameMod=7
+                    timer = 5
+                    musicInstance.val.setParameterByID(fadeOutID, true, false);
+                }
             }
+            //---------------------
+            if (FindNumObstacle(nextObstacle) != 1 ||  CalObsPosX(nextObstacle)< /*imgObstacle.width*/156 -20  )
+            { 
+                if (segment[FindNumSegment(nextObstacle)].nbVoie == 2)
+                {
+                    if (segment[FindNumSegment(nextObstacle)].voieDepart == 1)
+                    {
+                        if (voiture.V == 1 || voiture.V == 2)
+                        {
+                            BOOM("mine")
+                        }
+                    }
+                    else if (segment[FindNumSegment(nextObstacle)].voieDepart == 2)
+                    {
+                        if (voiture.V == 1 || voiture.V == 4)
+                        {
+                            BOOM("mine")
+                        }
+                    }
+                    else
+                    {
+                        if (voiture.V == 3 || voiture.V == 4)
+                        {
+                            BOOM("mine")
+                        }
+                    }
+                }
+                else if (segment[FindNumSegment(nextObstacle)].nbVoie == 3)
+                {
+                    if (segment[FindNumSegment(nextObstacle)].voieDepart == 1)
+                    {
+                        if (voiture.V == 1)
+                        {
+                            BOOM("mine")
+                        }
+                    }
+                    else
+                    {
+                        if (voiture.V == 4)
+                        {
+                            BOOM("mine")
+                        }
+                    }
+                }
+            }
+            if (  CalObsPosX(nextObstacle)>0 && CalObsPosX(nextObstacle) < 156 /*voiture.width*/+ 32)
+            {
+                if (B01[segment[FindNumSegment(nextObstacle)][FindNumObstacle(nextObstacle)]][voiture.V - 1] == 1)
+                {
+                    BOOM("obstacle")
+                }
+            }
+
         }
 
-        voiture.x+= decalWin/2*dt
 
-        roadX = roadX+(decalWin- voitureSpeed) * dt
+    
 
-        if (roadX + roadEcartX <= 0)
-        {
-            roadX = roadX + roadEcartX 
-        }
         
 
-        //distVoiture = distVoiture + voitureSpeed * dt
-    }
+
+        
+
+    } //TUTO
 
 
+    if (GameMod == 4)
+    {
+        
+            frameVoiture += voitureSpeed*0.040*dt*2
+            if(frameVoiture>=75)
+            {
+                frameVoiture=1
+                voiture.x = voiture.xGame
+                GameMod=5
+            }
 
-    if(GameMod == "GAME")
+        
+    } //INTRO
+
+    if (GameMod == 5)
 
     {
 
@@ -559,23 +256,17 @@ function update()
             frameVoiture-=2
         }
 
-        fond1_1.x -= (fond1_2.largeur-1200)/(distTotal/voitureSpeed )*dt
-        fond1_2.x -= (fond1_2.largeur-1200)/(distTotal/voitureSpeed )*dt
+        fond1_1X -= (fond1_2W-1200)/(distTotal/voitureSpeed )*dt
+        fond1_2X -= (fond1_2W-1200)/(distTotal/voitureSpeed )*dt
 
-        fond2_1.x -= (fond2_2.largeur-1200)/(distTotal/voitureSpeed )*dt
-        fond2_2.x -= (fond2_2.largeur-1200)/(distTotal/voitureSpeed )*dt
+        fond2_1X -= (fond2_2W-1200)/(distTotal/voitureSpeed )*dt
+        fond2_2X -= (fond2_2W-1200)/(distTotal/voitureSpeed )*dt
 
-        fond3_1.x-= (fond3_2.largeur-1200)/(distTotal/voitureSpeed )*dt
-        fond3_2.x-= (fond3_2.largeur-1200)/(distTotal/voitureSpeed )*dt
+        fond3_1X-= (fond3_2W-1200)/(distTotal/voitureSpeed )*dt
+        fond3_2X-= (fond3_2W-1200)/(distTotal/voitureSpeed )*dt
 
-        fond4_1.x-= (fond4_2.largeur-1200)/(distTotal/voitureSpeed )*dt
-        fond4_2.x-= (fond4_2.largeur-1200)/(distTotal/voitureSpeed )*dt
-
-
-     /*
-        fond1.x-= (1887-1200)/(distTotal/voitureSpeed )*dt
-        fond2.x-= (1887-1200)/(distTotal/voitureSpeed )*dt
-     */
+        fond4_1X-= (fond4_2W-1200)/(distTotal/voitureSpeed )*dt
+        fond4_2X-= (fond4_2W-1200)/(distTotal/voitureSpeed )*dt
 
 
         distVoiture = distVoiture + voitureSpeed * dt
@@ -607,7 +298,7 @@ function update()
             nextObstacle = nextObstacle + 1
             if(FindNumSegment(nextObstacle)== nbSegment+1) 
             {
-                GameMod="WIN"
+                GameMod=7
                 timer = 5
                 musicInstance.val.setParameterByID(fadeOutID, true, false);
             }
@@ -661,102 +352,187 @@ function update()
         {
             if (B01[segment[FindNumSegment(nextObstacle)][FindNumObstacle(nextObstacle)]][voiture.V - 1] == 1)
             {
-                //console.log ("obstacle ")
                 BOOM("obstacle")
             }
         }
-    }
-    // GAME
-}
-// fin update
+    } //GAME
+
+    if (GameMod == 6)
+    {
+        if (timer>0)
+        {
+            timer-= dt
+            menu.curseur=1
+            PlaceCursor()
+        }
+
+
+        if(raisonBoom == "obstacle")
+        {
+            
+            if (frameVoiture<2)
+            {
+                frameVoiture += 12*dt
+            } 
+
+        }
+
+        if(raisonBoom == "mine")
+        {
+            if (voiture.y < V[voiture.V]){
+                voiture.y+= voitureSpeed*1*dt
+                if (voiture.y >= V[voiture.V]){voiture.y = V[voiture.V]}
+            }
+       
+            
+            if (voiture.y > V[voiture.V]){
+                voiture.y-= voitureSpeed*1*dt
+                if (voiture.y <= V[voiture.V]){voiture.y = V[voiture.V]}
+            }
+
+            if (voiture.y == V[voiture.V]){
+                if (frameVoiture<=6)
+                {
+                    frameVoiture += 13*dt
+                }
+                else
+                {
+                    frameVoiture += 8*dt
+                }
+                
+            }
 
 
 
+            
+            if (frameVoiture>=10)
+            {
+                frameVoiture-= 3
+            } 
+        }
 
+    } //OVER
+
+    if (GameMod == 7)
+    {
+
+        distVoiture = distVoiture + voitureSpeed * dt
+
+        timer -= dt
+        if(timer<=0)
+        {
+            GameMod=2
+
+            InitMenu()
+
+            menu.statut=2
+            voiture.x= voiture.xIntro
+            
+            decalWin=0
+            PlaceCursor()
+
+        }
+
+        if(decalWin< voitureSpeed)
+        {
+            decalWin += dt* (voitureSpeed/ (1100*2/voitureSpeed))^0.5    // CALCUL TRES CHIANT NE PAS POSER DE QUESTION = calcul du frein de l'écran (décélération )
+            // 1296 = nb de pixel que l'ECRAN parcourt en phase de freinage 
+            if (decalWin>= voitureSpeed)
+            {
+                decalWin=voitureSpeed
+            }
+        }
+
+        voiture.x+= decalWin*dt
+
+        roadX = roadX+(decalWin- voitureSpeed) * dt
+
+    } //WIN
+
+} // fin update
 
 
 
 function draw(pCtx)
 {
     
-
-    fond5.draw(pCtx)
-    fond4_2.draw(pCtx)
-    fond4_1.draw(pCtx)
-    fond3_1.draw(pCtx)
-    fond3_2.draw(pCtx)
-    fond2_1.draw(pCtx)
-    fond2_2.draw(pCtx)
-    fond1_1.draw(pCtx)
-    fond1_2.draw(pCtx)
-
-
+    pCtx.drawImage(fond5, 0,0)
+    pCtx.drawImage(fond4_1, fond4_1X,0)
+    pCtx.drawImage(fond4_2, fond4_2X,0)
+    pCtx.drawImage(fond3_1, fond4_1X,0)
+    pCtx.drawImage(fond3_2, fond3_2X,0)
+    pCtx.drawImage(fond3_2, fond3_2X,0)
+    pCtx.drawImage(fond2_1, fond2_1X,0)
+    pCtx.drawImage(fond2_2, fond2_2X,0)
+    pCtx.drawImage(fond1_1, fond1_1X,0)
+    pCtx.drawImage(fond1_2, fond1_2X,0)
 
 
-
-    //pCtx.drawImage (voitureCrash.img[2], 0,0)
-
-    for (let S= 0; S<=3; S++)
+    if (GameMod == 3)
     {
-        pCtx.drawImage(imgMainRoad, roadX+ (S*roadEcartX), roadY-128  )
+
         
-    }
-    if(nextObstacle!=1 && nextObstacle< nbSegment*nbObstacleSegment-3 )
-    {
-    let S=0
-    while( S*roadEcartX< distObstacle*1.6)  /*(S*roadEcartX) -distObstacle*0.8 < distObstacle*0.8 */
-    {
-        if(FindNumObstacle(nextObstacle)>5)
+        for (let S= 0; S<=3; S++)
         {
-            pCtx.drawImage(imgInterRoad, (FindNumSegment(nextObstacle-1) ) * distSegment + distDepart -distObstacle*0.8+ (S*roadEcartX) - distVoiture, roadY)
-        } 
-        else
-        {
-            pCtx.drawImage(imgInterRoad, (FindNumSegment(nextObstacle) - 1) * distSegment + distDepart -distObstacle*0.8+ (S*roadEcartX) - distVoiture, roadY)
+            pCtx.drawImage(imgMainRoad, roadX+ (S*roadEcartX), roadY-128  )
+        
         }
+
         
-        S++  
-    }
-    
-
-        pCtx.drawImage(imgInterSegmentW, (FindNumSegment(nextObstacle) - 1) * distSegment + distDepart +distObstacle*0.8 - distVoiture, roadY)
-
-
-        pCtx.drawImage(imgInterSegmentY, (FindNumSegment(nextObstacle-1) ) * distSegment + distDepart -distObstacle*0.8 - distVoiture, roadY)
-        pCtx.drawImage(imgInterSegmentY, (FindNumSegment(nextObstacle) -1 ) * distSegment + distDepart -distObstacle*0.8 - distVoiture, roadY)
-    }
-   
-    
-
-    
-
-    for (let S1 = 0; S1 <= 2; S1++)
-    {
-        //// THIS OBSTACLE 
-        for (let S2 = 0; S2 < 4; S2++)
+        if (nextObstacle>=2 && FindNumSegment(nextObstacle+3)<= nbSegment ) 
         {
-            if (B01[segment[FindNumSegment(nextObstacle + S1)][FindNumObstacle(nextObstacle + S1)]][S2] == 1)
+            let S=0
+                
+            while( S*roadEcartX< distObstacle*1.6) 
             {
-                pCtx.drawImage(imgObstacle, CalObsPosX(nextObstacle + S1), roadY + roadEcartY * (S2))
-            } 
+                pCtx.drawImage(imgInterRoad, (FindNumSegment(nextObstacle-1) ) * distSegment + distDepart -distObstacle*0.8+ (S*roadEcartX) - distVoiture, roadY)
+                S++
+            }
         }
-    }
         
-    if (GameMod == "GAME") {
 
 
-        pCtx.fillText("remaining distance" , 900, 50)
-        pCtx.fillText( Math.floor( (distTotal - distVoiture) /70  )+" m", 974 , 70)
+        if( nextObstacle!=1 /*&& nextObstacle  < nbSegment*nbObstacleSegment-3*/ )  
+        {
+        
+            pCtx.drawImage(imgInterSegmentW, (FindNumSegment(nextObstacle) - 1) * distSegment + distDepart +distObstacle*0.8 - distVoiture, roadY)
+            
+            if( FindNumSegment(nextObstacle+3)<= nbSegment)
+            {
+                //les deux sont nécéssaire car il y a un changement de segment lorsque dépassé
+                pCtx.drawImage(imgInterSegmentY, (FindNumSegment(nextObstacle-1)  ) * distSegment + distDepart -distObstacle*0.8 - distVoiture, roadY)
+                pCtx.drawImage(imgInterSegmentY, (FindNumSegment(nextObstacle) -1 ) * distSegment + distDepart -distObstacle*0.8 - distVoiture, roadY)
+            }
+        }
+   
+
+        for (let S1 = 0; S1 <= 2; S1++) 
+        {
+           
+            for (let S2 = 0; S2 < 4; S2++)
+            {
+                if (B01[segment[FindNumSegment(nextObstacle + S1)][FindNumObstacle(nextObstacle + S1)]][S2] == 1 /*&& FindNumSegment(nextObstacle + S1) <nbSegment*/)
+                {
+                    pCtx.drawImage(imgObstacle[ skinObstacle [4*(nextObstacle+S1) +S2 ]  ], CalObsPosX(nextObstacle + S1), V[S2+1]+10 /*roadY + roadEcartY * (S2)*/)
+                } 
+            }
+        }
+
+
 
 
         pCtx.drawImage(voiture.img[Math.floor(frameVoiture) ],voiture.x,voiture.y+Math.floor(Math.floor(frameVoiture-1)*2))
 
 
+        pCtx.fillText("remaining distance" , 100, 50)
+        pCtx.fillText( Math.floor( (distTotal - distVoiture) /70  )+" m", 174 , 70)
 
 
+        pCtx.drawImage(voiture.img[Math.floor(frameVoiture) ],voiture.x,voiture.y+Math.floor(Math.floor(frameVoiture-1)*2))
 
-      /*FindNumSegment(nextObstacle) < nbSegment &&*/
+
         let NOF // nextObstacleFictif
+        // NOF = next obstacle mais corrige un bug de dizaine en fin de segment 
 
         if (FindNumObstacle(nextObstacle)==1)
         {
@@ -767,12 +543,9 @@ function draw(pCtx)
             NOF = nextObstacle
         }
 
-
-        if (  ( nextMessage[FindNumSegment(NOF)]   > distVoiture && nextMessage[FindNumSegment(NOF)] < distVoiture + distMessage)
-        /*||    ( FindNumObstacle(NOF)==1 && nextMessage[FindNumSegment(NOF)-1] < distVoiture + distMessage)*/)
+        if  ( ( nextMessage[FindNumSegment(NOF)]   > distVoiture && nextMessage[FindNumSegment(NOF)] < distVoiture + distMessage && FindNumSegment(NOF) < nbSegment ))
         {
 
-            //pCtx.drawImage(imgBulle, 50 ,20 )
 
             if (!hasPlaySignal && segment[FindNumSegment(NOF) + 1].nbVoie < 4)
             {
@@ -780,111 +553,312 @@ function draw(pCtx)
                 hasPlaySignal = true;
             }
 
-            bulle.draw(pCtx)
+            pCtx.drawImage(imgBulle, 750,20 )
 
+            
+            
             if (segment[FindNumSegment(NOF) + 1].nbVoie == 2)
             {
                 if (segment[FindNumSegment(NOF) + 1].voieDepart == 1)
                 { 
-                    pCtx.drawImage(imgNupe, 155+95, 28+12)
-                    pCtx.drawImage(imgNupe, 155+95, 58+12)
+                    pCtx.drawImage(imgNupe, 155+95+700, 28+12)
+                    pCtx.drawImage(imgNupe, 155+95+700, 58+12) 
                 }
                 else if (segment[FindNumSegment(NOF) + 1].voieDepart == 2)
                 {
-                    pCtx.drawImage(imgNupe, 155+95, 28+12)
-                    pCtx.drawImage(imgNupe, 155+95, 118+12)
+                    pCtx.drawImage(imgNupe, 155+95+700, 28+12)
+                    pCtx.drawImage(imgNupe, 155+95+700, 118+12)
                 }
                 else
                 {
-                    pCtx.drawImage(imgNupe, 155+95, 88+12)
-                    pCtx.drawImage(imgNupe, 155+95, 118+12)
+                    pCtx.drawImage(imgNupe, 155+95+700, 88+12)
+                    pCtx.drawImage(imgNupe, 155+95+700, 118+12)
                 }
-        }
-        else if (segment[FindNumSegment(NOF) + 1].nbVoie == 3)
-        {
-            if (segment[FindNumSegment(NOF) + 1].voieDepart == 1)
+            }
+
+
+            else if (segment[FindNumSegment(NOF) + 1].nbVoie == 3)
             {
-                pCtx.drawImage(imgNupe, 155+95, 28+12)         
+                if (segment[FindNumSegment(NOF) + 1].voieDepart == 1)
+                {
+                    pCtx.drawImage(imgNupe, 155+95+700, 28+12)         
+                }
+                else 
+                pCtx.drawImage(imgNupe, 155+95+700, 118+12)
             }
-            else 
-                pCtx.drawImage(imgNupe, 155+95, 118+12)
-            }
-     }
-     else
-     {
-         hasPlaySignal = false;
-     }
-
-    }
-    if (GameMod == "MENU")
-    {
-      //  ctx.fillStyle = 'rgb(255, 255, 255)';
-        pCtx.drawImage(voiture.img[1],voiture.x,voiture.y)
-
-        //pCtx.drawImage(voiture.img[1],voiture.x,voiture.y)
-       // voiture.draw(pCtx)
-
-       // curseur.draw(pCtx)
-       curseur.draw(pCtx)
-
-       for (let S = 1; S<= menu.I[menu.statut].length-1; S++ )
-       {
-        pCtx.fillText(menu.I[menu.statut][S].txt, menu.I[menu.statut][S].x, menu.I[menu.statut][S].y)
-       }
-
-
-        pCtx.fillText("Arrow to naviguate - ENTER to choose  ", 400, 50 )
-    }
-    if (GameMod == "CLICTOPLAY")
-    {
-        ctx.fillStyle = 'rgb(255, 255, 255)';
-        pCtx.drawImage(voiture.img[1],voiture.x,voiture.y)
-
-        titre.draw(pCtx)
-
-
-        pCtx.fillText("-- CLICK TO PLAY --", 480, 50 )
-    }
-    if (GameMod == "OVER")
-    { 
-        if(raisonBoom=="obstacle")
-        {
-            pCtx.drawImage(voitureCrash.img[Math.floor(frameVoiture) ],voiture.x+10,voiture.y)
         }
-        if(raisonBoom=="mine")
+        else
         {
-            pCtx.drawImage(voitureBoom.img[Math.floor(frameVoiture) ],voiture.x,voiture.y+86 - voitureBoom.img[Math.floor(frameVoiture) ].height  )
+         hasPlaySignal = false;
+        }
+
+        if (FreezeTUTO()==true)
+        {
+            pCtx.globalAlpha = 0.4
+            pCtx.drawImage(imgBlack,0,0,1200,675)
+            pCtx.globalAlpha = 1
+            /*
+            tuto.txt[tuto.state].forEach(element => {
+                pCtx.fillText( element, tuto.txtX[tuto.state][1], tuto.txtY[tuto.state][1])
+                console.log (element)
+            })*/
+
+            for (let S = 1; S <= tuto.txt[tuto.state].length; S++ )
+            {
+                pCtx.globalAlpha = 0.8
+                pCtx.drawImage(imgBlack,tuto.txtX[tuto.state][S]-10,tuto.txtY[tuto.state][S]-15,20+ (600-tuto.txtX[tuto.state][S])*2 ,20)
+                pCtx.globalAlpha = 1
+            
+
+                pCtx.fillText( tuto.txt[tuto.state][S] , tuto.txtX[tuto.state][S], tuto.txtY[tuto.state][S])
+
+
+            }
+
+            if (tuto.state == 2) {pCtx.drawImage(imgTuto2_1,935,120 )}
+            if (tuto.state == 3) {pCtx.drawImage(imgTuto3_1, 890,33 )}
+
+            //pCtx.fillText( tuto.txt[tuto.state] , tuto.txtX[tuto.state], tuto.txtY[tuto.state])
+
+            pCtx.drawImage(imgBlack, 465-10 ,550-15, 20+ (600-465)*2 ,20)
+            pCtx.fillText( "PRESS ENTER TO CONTINUE" , 465 , 550)
+
+        }
+    } //TUTO
+
+
+    if (GameMod == 5 || GameMod == 6 || GameMod==7)
+    {
+        for (let S= 0; S<=3; S++)
+        {
+            pCtx.drawImage(imgMainRoad, roadX+ (S*roadEcartX), roadY-128  )
+        
+        }
+
+        if (GameMod == 5 || GameMod == 6)
+        {
+            if (nextObstacle>=2 && FindNumSegment(nextObstacle+3)<= nbSegment ) 
+            {
+                let S=0
+                    
+                while( S*roadEcartX< distObstacle*1.6) 
+                {
+                    pCtx.drawImage(imgInterRoad, (FindNumSegment(nextObstacle-1) ) * distSegment + distDepart -distObstacle*0.8+ (S*roadEcartX) - distVoiture, roadY)
+                    S++
+                }
+            }
+            
+
+
+            if( nextObstacle!=1 /*&& nextObstacle  < nbSegment*nbObstacleSegment-3*/ )  
+            {
+            
+                pCtx.drawImage(imgInterSegmentW, (FindNumSegment(nextObstacle) - 1) * distSegment + distDepart +distObstacle*0.8 - distVoiture, roadY)
+                
+                if( FindNumSegment(nextObstacle+3)<= nbSegment)
+                {
+                    //les deux sont nécéssaire car il y a un changement de segment lorsque dépassé
+                    pCtx.drawImage(imgInterSegmentY, (FindNumSegment(nextObstacle-1)  ) * distSegment + distDepart -distObstacle*0.8 - distVoiture, roadY)
+                    pCtx.drawImage(imgInterSegmentY, (FindNumSegment(nextObstacle) -1 ) * distSegment + distDepart -distObstacle*0.8 - distVoiture, roadY)
+                }
+            }
+       
+
+            for (let S1 = 0; S1 <= 2; S1++) 
+            {
+               
+                for (let S2 = 0; S2 < 4; S2++)
+                {
+                    if (B01[segment[FindNumSegment(nextObstacle + S1)][FindNumObstacle(nextObstacle + S1)]][S2] == 1 /*&& FindNumSegment(nextObstacle + S1) <nbSegment*/)
+                    {
+                        pCtx.drawImage(imgObstacle[ skinObstacle [4*(nextObstacle+S1) +S2 ]  ], CalObsPosX(nextObstacle + S1), V[S2+1]+10 /*roadY + roadEcartY * (S2)*/)
+                    } 
+                }
+            }
+
+
+            if (GameMod == 5)  
+        {
+    
+            pCtx.drawImage(voiture.img[Math.floor(frameVoiture) ],voiture.x,voiture.y+Math.floor(Math.floor(frameVoiture-1)*2))
+    
+    
+            pCtx.fillText("remaining distance" , 100, 50)
+            pCtx.fillText( Math.floor( (distTotal - distVoiture) /70  )+" m", 174 , 70)
+    
+
+            pCtx.drawImage(voiture.img[Math.floor(frameVoiture) ],voiture.x,voiture.y+Math.floor(Math.floor(frameVoiture-1)*2))
+    
+    
+            let NOF // nextObstacleFictif
+            // NOF = next obstacle mais corrige un bug de dizaine en fin de segment 
+    
+            if (FindNumObstacle(nextObstacle)==1)
+            {
+                NOF = nextObstacle-1
+            }
+            else
+            {
+                NOF = nextObstacle
+            }
+    
+            if  ( ( nextMessage[FindNumSegment(NOF)]   > distVoiture && nextMessage[FindNumSegment(NOF)] < distVoiture + distMessage && FindNumSegment(NOF) < nbSegment ))
+            {
+    
+    
+                if (!hasPlaySignal && segment[FindNumSegment(NOF) + 1].nbVoie < 4)
+                {
+                    signalInstance.val.start();
+                    hasPlaySignal = true;
+                }
+
+                pCtx.drawImage(imgBulle, 750,20  )
+                
+                if (segment[FindNumSegment(NOF) + 1].nbVoie == 2)
+                {
+                    if (segment[FindNumSegment(NOF) + 1].voieDepart == 1)
+                    { 
+                        pCtx.drawImage(imgNupe, 155+95+700, 28+12)
+                        pCtx.drawImage(imgNupe, 155+95+700, 58+12) 
+                    }
+                    else if (segment[FindNumSegment(NOF) + 1].voieDepart == 2)
+                    {
+                        pCtx.drawImage(imgNupe, 155+95+700, 28+12)
+                        pCtx.drawImage(imgNupe, 155+95+700, 118+12)
+                    }
+                    else
+                    {
+                        pCtx.drawImage(imgNupe, 155+95+700, 88+12)
+                        pCtx.drawImage(imgNupe, 155+95+700, 118+12)
+                    }
+                }
+
+
+                else if (segment[FindNumSegment(NOF) + 1].nbVoie == 3)
+                {
+                    if (segment[FindNumSegment(NOF) + 1].voieDepart == 1)
+                    {
+                        pCtx.drawImage(imgNupe, 155+95+700, 28+12)         
+                    }
+                    else 
+                    pCtx.drawImage(imgNupe, 155+95+700, 118+12)
+                }
+            }
+            else
+            {
+             hasPlaySignal = false;
+            }
+    
+            } // GAME 
+
+            if (GameMod == 6)
+        { 
+            if(raisonBoom=="obstacle")
+            {
+                pCtx.drawImage(voitureCrash.img[Math.floor(frameVoiture) ],voiture.x+10,voiture.y)
+            }
+            if(raisonBoom=="mine")
+            {
+                pCtx.drawImage(voitureBoom.img[Math.floor(frameVoiture) ],voiture.x,voiture.y+86 - voitureBoom.img[Math.floor(frameVoiture) ].height  )
+            }
+            
+    
+    
+            pCtx.drawImage(imgCurseur, curseur.x,curseur.y )
+    
+            pCtx.fillText("Arrow to naviguate - ENTER to choose  ", 400, 50 )
+            pCtx.fillText(menu.I[1][1].txt, menu.I[1][1].x, menu.I[1][1].y)
+            pCtx.fillText(menu.I[1][2].txt, menu.I[1][2].x, menu.I[1][2].y)
+    
+            pCtx.fillText("remaining distance" , 100, 50)
+            pCtx.fillText( Math.floor( (distTotal - distVoiture) /70  )+" m", 174 , 70)
+    
+            } // OVER
+
+        } // GAME + OVER
+
+        if (GameMod == 7)
+        { 
+
+            pCtx.drawImage(imgEnd1, roadX  + roadEcartX*4 ,175)
+            pCtx.drawImage(voiture.img[Math.floor(frameVoiture) ],voiture.x,voiture.y+Math.floor(Math.floor(frameVoiture-1)*2))
+            pCtx.fillText("Mission complete", 500, 300)
+     
+        } //WIN
+    }
+
+    if ( GameMod == 1 || GameMod == 2 || GameMod == 4 )
+    { 
+        
+        pCtx.drawImage(imgStart1,0,175)
+        pCtx.drawImage(imgObstacle[1], 350, V[1]+10 )
+        pCtx.drawImage(imgObstacle[2], 350, V[2]+10  )
+        pCtx.drawImage(imgObstacle[3], 350, V[3]+10  )
+        pCtx.drawImage(imgObstacle[4], 350, V[4]+10  )
+
+        pCtx.drawImage(imgIntroPlanche, 280, 370   )
+
+
+        if (GameMod == 1)
+        {
+            ctx.fillStyle = 'rgb(255, 255, 255)';
+
+            pCtx.drawImage(imgTitre,200,65)
+    
+            pCtx.fillText("-- CLICK TO PLAY --", 510, 50 )
+        } //CLICTOPLAY
+    
+    
+        if (GameMod == 2)
+        {
+
+           pCtx.fillText("Arrow to naviguate - ENTER to choose  ", 400, 50 )
+    
+           for (let S = 1; S<= menu.I[menu.statut].length-1; S++ )
+           {
+            pCtx.fillText(menu.I[menu.statut][S].txt, menu.I[menu.statut][S].x, menu.I[menu.statut][S].y)
+           }
+
+           pCtx.drawImage(imgCurseur, curseur.x,curseur.y )
+
+        } // MENU
+
+
+        if (GameMod == 4)
+        {
+                pCtx.drawImage(imgVoitureIntro[Math.floor(frameVoiture) ],0,175 )
+        }
+
+
+
+    }  
+
+
+ // Barrière basse 
+    pCtx.globalAlpha = 0.4
+
+    if (GameMod == 4 || GameMod == 2 || GameMod == 1)
+    {
+        pCtx.drawImage(imgStart2, 0, 175+48-20 )
+    }
+    else
+    {
+        if(GameMod== 7)
+        {
+            pCtx.drawImage(imgEnd2, roadX  + roadEcartX*4 ,175+48-20)
+
         }
         
-
-
-        curseur.draw(pCtx)
-
-        pCtx.fillText("Arrow to naviguate - ENTER to choose  ", 400, 50 )
-        pCtx.fillText(menu.I[1][1].txt, menu.I[1][1].x, menu.I[1][1].y)
-        pCtx.fillText(menu.I[1][2].txt, menu.I[1][2].x, menu.I[1][2].y)
-
-        pCtx.fillText("remaining distance" , 900, 50)
-        pCtx.fillText( Math.floor( (distTotal - distVoiture) /70  )+" m", 974 , 70)
-
-     //   pCtx.fillText("Press RETURN to restart", 300, 50)
-    }
-
-    if (GameMod == "WIN")
-    { 
-        //voiture.draw(pCtx)
-        pCtx.drawImage(voiture.img[1],voiture.x,voiture.y)
-
-
-        pCtx.fillText("Mission complete", 340, 140)
-     //   pCtx.fillText("Press RETURN to restart", 300, 50)
-    }    
-
-    pCtx.globalAlpha = 0.4
-    for (let S= 0; S<=3; S++)
-    {
-        pCtx.drawImage(imgBarriere, roadX+ (S*roadEcartX), 570  )
+        
+            for (let S= 0; S<=3; S++)
+            {
+                pCtx.drawImage(imgBarriere, roadX+ (S*roadEcartX), 522+48-20  )
+            }
+        
+        
+        
     }
     pCtx.globalAlpha = 1
-}
 
+
+} //fin draw
