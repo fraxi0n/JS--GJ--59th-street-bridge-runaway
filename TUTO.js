@@ -143,33 +143,33 @@ for (let S= 1; S <=10; S++)
 tuto.x= [0,900,5300,5300,7400, 11500]
 
 
-tuto.txt [1][1] = "use arrow to dodge cars"
+tuto.txt [1][1] = "use arrow to move your car"
 tuto.txtX[1][1] = 465
 tuto.txtY[1][1] = 300
 
 
-tuto.txt [2][1] = "brain aware you, the bottom road will be mine soon"
+tuto.txt [2][1] = "Brain warns you, the bottom lane of the roadway will be mined soon"
 tuto.txtX[2][1] = 350-20-20
 tuto.txtY[2][1] = 300
 
-tuto.txt [3][1] = "it will be impractical from the white crosswalk to the yellow crosswalk" // "carreful this way will be unpractical only after the white crosswalk"
+tuto.txt [3][1] = "it will be deadly from the white crosswalk to the yellow crosswalk" // "carreful this way will be unpractical only after the white crosswalk"
 tuto.txtX[3][1] = 200+5
 tuto.txtY[3][1] = 300
-tuto.txt [3][2] = "for now this way is still sure "
+tuto.txt [3][2] = "for now this lane is still safe "
 tuto.txtX[3][2] = 500-50-3
 tuto.txtY[3][2] = 321
 
-tuto.txt [4][1]  = "white part are always free of mine and obstacle"
+tuto.txt [4][1]  = "white portions are always safe"
 tuto.txtX[4][1]  = 300+15
 tuto.txtY[4][1]  = 300
-tuto.txt [4][2]  = "remember, the mined part begin right after the white crosswalk"
+tuto.txt [4][2]  = "remember, the mined portion begins right after the white crosswalk"
 tuto.txtX[4][2]  = 270+20-50
 tuto.txtY[4][2]  = 321
 
-tuto.txt [5][1] = "brain aware you again, but careful :"
+tuto.txt [5][1] = "Brain warns you again, but careful :"
 tuto.txtX[5][1] = 400
 tuto.txtY[5][1] = 300
-tuto.txt [5][2] = "his last warning is still cumpting until the next yellow crosswalk !"
+tuto.txt [5][2] = "his previous warning is still valid until the next yellow crosswalk !"
 tuto.txtX[5][2] = 200
 tuto.txtY[5][2] = 321
 
