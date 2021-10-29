@@ -85,13 +85,13 @@ function load()
 
 
     fond1_1.src = "sprite/fond 2/C1-1.png"
-    fond1_2.src = "sprite/fond 2/C1-2.png"//,1000
+    fond1_2.src = "sprite/fond 2/C1-2.png"
     fond2_1.src  = "sprite/fond 2/C2-1.png"
-    fond2_2.src  = "sprite/fond 2/C2-2.png"//,1000
+    fond2_2.src  = "sprite/fond 2/C2-2.png"
     fond3_1.src  = "sprite/fond 2/C3-1.png"
-    fond3_2.src  = "sprite/fond 2/C3-2.png"//,1000
+    fond3_2.src  = "sprite/fond 2/C3-2.png"
     fond4_1.src  = "sprite/fond 2/C4-1.png"
-    fond4_2.src  = "sprite/fond 2/C4-2.png"//,1000
+    fond4_2.src  = "sprite/fond 2/C4-2.png"
     fond5.src    = "sprite/fond 2/C5.png"
 
 
@@ -293,7 +293,7 @@ function update()
 
 
 
-        if (CalObsPosX(nextObstacle) < 0 - 156/* obstacle width*/  )
+        if (CalObsPosX(nextObstacle) < 0 - 156)
         {
             nextObstacle = nextObstacle + 1
             if(FindNumSegment(nextObstacle)== nbSegment+1) 
@@ -303,8 +303,8 @@ function update()
                 musicInstance.val.setParameterByID(fadeOutID, true, false);
             }
         }
-        //---------------------
-        if (FindNumObstacle(nextObstacle) != 1 ||  CalObsPosX(nextObstacle)< /*imgObstacle.width*/156 -20  )
+
+        if (FindNumObstacle(nextObstacle) != 1 ||  CalObsPosX(nextObstacle)< 156 -20  )
         { 
             if (segment[FindNumSegment(nextObstacle)].nbVoie == 2)
             {
@@ -669,9 +669,9 @@ function draw(pCtx)
                
                 for (let S2 = 0; S2 < 4; S2++)
                 {
-                    if (B01[segment[FindNumSegment(nextObstacle + S1)][FindNumObstacle(nextObstacle + S1)]][S2] == 1 /*&& FindNumSegment(nextObstacle + S1) <nbSegment*/)
+                    if (B01[segment[FindNumSegment(nextObstacle + S1)][FindNumObstacle(nextObstacle + S1)]][S2] == 1 )
                     {
-                        pCtx.drawImage(imgObstacle[ skinObstacle [4*(nextObstacle+S1) +S2 ]  ], CalObsPosX(nextObstacle + S1), V[S2+1]+10 /*roadY + roadEcartY * (S2)*/)
+                        pCtx.drawImage(imgObstacle[ skinObstacle [4*(nextObstacle+S1) +S2 ]  ], CalObsPosX(nextObstacle + S1), V[S2+1]+10 )
                     } 
                 }
             }

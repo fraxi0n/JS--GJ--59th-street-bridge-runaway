@@ -202,7 +202,7 @@ function InitGame() // initialise les variable + génère la map a lier au creat
     CreateMap()
 
     nextMessage = []
-    for (let S = 1 ; S <= nbSegment*4/*+12*/; S++ )
+    for (let S = 1 ; S <= nbSegment*4; S++ )
     {
         nextMessage[S] = distDepart + distSegment * (S-1) + distSegment * RandomINT (msgMin,msgMax)/10
     }

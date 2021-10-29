@@ -1,4 +1,4 @@
-let hasPlaySignal = false;
+let hasPlaySignal = false
 
 
 let voitureSpeed// = 1120  // vitesse de la voiture 
@@ -17,100 +17,16 @@ let TdistObstacle =[ 840, 1080, 1440,720 ] // difficulté - none - easy - medium
 let distMessage   // la distance sur laquelle le message est affiché 
 
 
-// A NE PAS RETIRER CORRESPOND A QUOI?? -- créneaud sur lequell le message peut apparaitre
+// créneau entre lequel les bulle peut apparaitre en  en  10 étant la fin du segment 5 étant la moitié
 let msgMin
 let msgMax
 
-let nbSegment = 12 // un segment correspond a une portion marqué en jaune
 
-let segment/* = []
+let segment  // un segment correspond a une portion marqué en jaune
 
-// A RETIRER ??
+let nbSegment = 12
 
-for(let S= 1; S<=nbSegment ; S++) 
-{ 
-    segment[S]=[]
-}
-*/
 let nbObstacleSegment = 16 // le nb de ligne d'obstacle à chaque segment
-
-
-let skinObstacle = [] 
-
-
-
-//--------------------------------------------------------------------
-
-
-
-
-
-// A changer pour les perf
-let GameMod = 1
-
-
-let imgObstacle = []
-
-let imgMainRoad = new Image 
-let imgInterRoad = new Image 
-
-let imgBarriere = new Image 
-let imgInterSegmentW = new Image 
-let imgInterSegmentY = new Image 
-
-let imgTitre = new Image 
-let imgCurseur = new Image
-let curseur=[]
-
-let imgBulle = new Image
-let imgNupe = new Image 
-
-
-
-let imgVoitureIntro = []
-
-let imgIntroPlanche = new Image 
-
-let imgStart1 = new Image 
-let imgStart2 = new Image 
-
-let imgEnd1 = new Image 
-let imgEnd2 = new Image 
-
-let imgBlack = new Image
-let imgTuto2_1 = new Image
-let imgTuto3_1 = new Image
-
-
-
-fond1_1 = new Image
-fond1_2 = new Image
-fond2_1 = new Image
-fond2_2 = new Image
-fond3_1 = new Image
-fond3_2 = new Image
-fond4_1 = new Image
-fond4_2 = new Image
-fond5   = new Image
-
-let fond1_1X
-let fond1_2X
-let fond2_1X
-let fond2_2X
-let fond3_1X 
-let fond3_2X 
-let fond4_1X 
-let fond4_2X 
-
-
-let fond1_2W = 2000
-let fond2_2W = 1747
-let fond3_2W = 1509
-let fond4_2W = 1336
-
-
-
-
 
 // position de la route 
 
@@ -119,41 +35,43 @@ let roadY=  303
 let roadEcartX = 399
 let roadEcartY = 80
 
-let distTotal
-let distVoiture // 
-let distDepart  //=  1.2 * distObstacle// distObstacle*0.5   --1.2
-let distSegment //= ( nbObstacleSegment+1.5)*distObstacle
-let nextObstacle //
-let nextMessage  //
-
-let decalWin = 0
-
-let voitureCrash=[]
-voitureCrash.img=[]
-
-let voitureBoom=[]
-voitureBoom.img=[]
-
-let voiture= []
-voiture.img=[]
-
 let V=[]
 V[1] = roadY-10
 V[2] = V[1]+roadEcartY
 V[3] = V[1]+roadEcartY*2
 V[4] = V[1]+roadEcartY*3
 
+
+let distTotal
+let distVoiture 
+let distDepart  
+let distSegment 
+
+let nextObstacle 
+let nextMessage  
+
+let voiture= []
+voiture.img=[]
+
 voiture.V=2
 
 voiture.xGame = 30
 voiture.xIntro = -200
 
-
 let frameVoiture = 1
 
+let raisonBoom
+
+let decalWin = 0 // anim de fin 
+let timer 
+
+let skinObstacle = [] 
+
+let GameMod = 1
 
 
 // ---------------------
+// code binaire pour la disposition d'une rangée d'obstacle
 
 let B01= []
 B01[0]= [0,0,0,0]
@@ -174,12 +92,14 @@ B01[14]=[1,1,1,0]
 
 
 //        SEGMENT GENERATOR
+// liste des codes valable pour chaque rangé selon les voie disponible  (voie non minée)
+// SG [ nb voie dispo ] [ voie dispo de départ ]
+// .PO  = les code ou il y a peu d'obstacle pour la config (sers a obtenir une meilleure génération)
+
 let SG=[]
 SG[4]=[]
 SG[4][1]= [null,1,2,3,4,5,6,7,8,9,10,11,12,13,14]
 SG[4][1].PO= [1,2,4,8]
-
-
 
 
 
@@ -201,7 +121,8 @@ SGindex[2] = 8
 SGindex[3] = 12
 SGindex[4] = 14
 
-
+//---------------------------------------------------------
+// position des texte dans le menu
 
 let menu=[] 
 
@@ -257,6 +178,75 @@ let menu=[]
    menu.curseur = 1 
    menu.statut = 2
 
-   let raisonBoom
-   let timer 
 
+
+
+   //--------------------------------------------------------------------
+//IMAGE
+
+let voitureCrash=[]
+voitureCrash.img=[]
+
+let voitureBoom=[]
+voitureBoom.img=[]
+
+let imgObstacle = []
+
+let imgMainRoad = new Image 
+let imgInterRoad = new Image 
+
+let imgBarriere = new Image 
+let imgInterSegmentW = new Image 
+let imgInterSegmentY = new Image 
+
+let imgTitre = new Image 
+let imgCurseur = new Image
+let curseur=[]
+
+let imgBulle = new Image
+let imgNupe = new Image 
+
+
+
+let imgVoitureIntro = []
+
+let imgIntroPlanche = new Image 
+
+let imgStart1 = new Image 
+let imgStart2 = new Image 
+
+let imgEnd1 = new Image 
+let imgEnd2 = new Image 
+
+let imgBlack = new Image
+let imgTuto2_1 = new Image
+let imgTuto3_1 = new Image
+
+
+
+fond1_1 = new Image
+fond1_2 = new Image
+fond2_1 = new Image
+fond2_2 = new Image
+fond3_1 = new Image
+fond3_2 = new Image
+fond4_1 = new Image
+fond4_2 = new Image
+fond5   = new Image
+
+//position en x des fonds (les fonds scrolls)
+let fond1_1X
+let fond1_2X
+let fond2_1X
+let fond2_2X
+let fond3_1X 
+let fond3_2X 
+let fond4_1X 
+let fond4_2X 
+
+
+// largeur des fonds
+let fond1_2W = 2000
+let fond2_2W = 1747
+let fond3_2W = 1509
+let fond4_2W = 1336

@@ -4,7 +4,6 @@ function FreezeTUTO()
 {
     let x = false
    if (distVoiture>= tuto.x[tuto.state]) {x=true}
-  // console.log( tuto.x[tuto.state], distVoiture)
    return x
 
 }
@@ -48,10 +47,6 @@ function InitTUTO()
     segment[3][6] = 1
     segment[3][7] = 9
 
-
-
-
-    //segment = [ [1,1,1,1,1] [1,8,1,2,3] ];
 
     segment[1].voieDepart = 1
     segment[1].nbVoie= 4
@@ -144,42 +139,31 @@ tuto.x= [0,900,5300,5300,7400, 11500]
 
 
 tuto.txt [1][1] = "use arrow to move your car"
-tuto.txtX[1][1] = 465
+tuto.txtX[1][1] = 450
 tuto.txtY[1][1] = 300
 
 
 tuto.txt [2][1] = "Brain warns you, the bottom lane of the roadway will be mined soon"
-tuto.txtX[2][1] = 350-20-20
+tuto.txtX[2][1] = 233
 tuto.txtY[2][1] = 300
 
 tuto.txt [3][1] = "it will be deadly from the white crosswalk to the yellow crosswalk" // "carreful this way will be unpractical only after the white crosswalk"
-tuto.txtX[3][1] = 200+5
+tuto.txtX[3][1] = 230
 tuto.txtY[3][1] = 300
 tuto.txt [3][2] = "for now this lane is still safe "
-tuto.txtX[3][2] = 500-50-3
+tuto.txtX[3][2] = 438
 tuto.txtY[3][2] = 321
 
 tuto.txt [4][1]  = "white portions are always safe"
-tuto.txtX[4][1]  = 300+15
+tuto.txtX[4][1]  = 420+10
 tuto.txtY[4][1]  = 300
 tuto.txt [4][2]  = "remember, the mined portion begins right after the white crosswalk"
-tuto.txtX[4][2]  = 270+20-50
+tuto.txtX[4][2]  = 238
 tuto.txtY[4][2]  = 321
 
 tuto.txt [5][1] = "Brain warns you again, but careful :"
-tuto.txtX[5][1] = 400
+tuto.txtX[5][1] = 408
 tuto.txtY[5][1] = 300
 tuto.txt [5][2] = "his previous warning is still valid until the next yellow crosswalk !"
-tuto.txtX[5][2] = 200
+tuto.txtX[5][2] = 238
 tuto.txtY[5][2] = 321
-
-
-
-/*
-
-
-tuto.txt [1] = ""
-tuto.txtX[1] =
-tuto.txtY[1] =
-*/
-
