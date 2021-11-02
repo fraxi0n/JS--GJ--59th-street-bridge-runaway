@@ -48,6 +48,7 @@ var BANK_NAME = [
 ];
 
 var musicInstance = {};
+var cursorInstance = {};
 var explosionInstance = {};
 var signalInstance = {};
 var obstacleInstance = {};
@@ -348,6 +349,11 @@ function initApplication()
     CHECK_RESULT( gSystem.getEvent("event:/music", musicDescription) );
     
     CHECK_RESULT( musicDescription.val.createInstance(musicInstance) );
+
+    var cursorDescription = {};
+    CHECK_RESULT( gSystem.getEvent("event:/cursor", cursorDescription) );
+    
+    CHECK_RESULT( cursorDescription.val.createInstance(cursorInstance) );
     
     var signalDescription = {};
     CHECK_RESULT( gSystem.getEvent("event:/signal", signalDescription) );

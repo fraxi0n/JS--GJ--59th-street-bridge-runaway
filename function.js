@@ -256,6 +256,7 @@ function mouseDown() // CLICK TO PLAY
 {
     if (GameMod == 1)
     {
+        cursorInstance.val.start();
         GameMod=2
     }
     
@@ -277,12 +278,14 @@ function KeyDown(t) //      ELSE IF A TESTER
          {
             menu.curseur -- 
             if (menu.curseur==0){ menu.curseur= menu.I[menu.statut].length -1 }
+            cursorInstance.val.start();
             PlaceCursor()
          }
         if (t.code == "ArrowDown")
         {
             menu.curseur ++
             if (menu.curseur==menu.I[menu.statut].length){ menu.curseur=1 }
+            cursorInstance.val.start();
              PlaceCursor()
         } // ARROW
 
