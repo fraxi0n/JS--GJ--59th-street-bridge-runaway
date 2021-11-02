@@ -58,6 +58,9 @@ voiture.V=2
 voiture.xGame = 30
 voiture.xIntro = -200
 
+voiture.x=-200
+voiture.y=V [voiture.V]
+
 let frameVoiture = 1
 
 let raisonBoom
@@ -67,7 +70,7 @@ let timer
 
 let skinObstacle = [] 
 
-let GameMod = 1
+let GameMod = 10
 
 
 // ---------------------
@@ -183,56 +186,11 @@ let menu=[]
 
    //--------------------------------------------------------------------
 //IMAGE
-
-let voitureCrash=[]
-voitureCrash.img=[]
-
-let voitureBoom=[]
-voitureBoom.img=[]
-
-let imgObstacle = []
-
-let imgMainRoad = new Image 
-let imgInterRoad = new Image 
-
-let imgBarriere = new Image 
-let imgInterSegmentW = new Image 
-let imgInterSegmentY = new Image 
-
-let imgTitre = new Image 
-let imgCurseur = new Image
-let curseur=[]
-
-let imgBulle = new Image
-let imgNupe = new Image 
-
-
-
-let imgVoitureIntro = []
-
-let imgIntroPlanche = new Image 
-
-let imgStart1 = new Image 
-let imgStart2 = new Image 
-
-let imgEnd1 = new Image 
-let imgEnd2 = new Image 
+let  img = new ImageManager
 
 let imgBlack = new Image
-let imgTuto2_1 = new Image
-let imgTuto3_1 = new Image
+ img.add( "sprite/tuto/black.png" , "Black"  )
 
-
-
-fond1_1 = new Image
-fond1_2 = new Image
-fond2_1 = new Image
-fond2_2 = new Image
-fond3_1 = new Image
-fond3_2 = new Image
-fond4_1 = new Image
-fond4_2 = new Image
-fond5   = new Image
 
 //position en x des fonds (les fonds scrolls)
 let fond1_1X
@@ -250,3 +208,13 @@ let fond1_2W = 2000
 let fond2_2W = 1747
 let fond3_2W = 1509
 let fond4_2W = 1336
+
+
+
+
+
+//-----------------------------
+
+let curseur=[]
+
+GameMod = 8

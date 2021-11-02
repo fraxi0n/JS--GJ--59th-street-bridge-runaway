@@ -7,6 +7,7 @@ GameMod :
 5 - game
 6 - over 
 7 - win 
+10 - image loader
 */
 
 
@@ -19,84 +20,75 @@ function load()
     document.addEventListener("keyup", KeyUp, false)  
     document.addEventListener("mousedown", mouseDown)
 
-  
+    imgBlack.src= "sprite/tuto/black.png"
+
+    img.add(  "sprite/bridge/route.png", "MainRoad" )
+    img.add(  "sprite/bridge/route_blanc.png", "InterRoad"  )
+
+    img.add(  "sprite/bridge/interSegment_blanc.png" , "InterSegmentW"   )
+    img.add(  "sprite/bridge/interSegment_jaune.png" , "InterSegmentY"  )
+
+    img.add( "sprite/bridge/barriere.png" , "Barriere"  )
+
+    
+    img.add( "sprite/bridge/start_1.png" , "Start1"  )
+    img.add( "sprite/bridge/start_2.png" , "Start2" )
+    img.add( "sprite/bridge/end_1.png" , "End1"  )
+    img.add( "sprite/bridge/end_2.png" , "End2"  )
+
+    img.add("sprite/bulle.png" , "Bulle"  )
+    img.add( "sprite/nupe.png" ,  "Nupe"  )
+
+   //   -----------------------------------------------------------------
+    img.add( "sprite/tuto/2-1.png" , "Tuto2_1"  )
+    img.add( "sprite/tuto/3-1.png" , "Tuto3_1"  )
 
 
-
-
-    imgMainRoad.src = "sprite/bridge/route.png" 
-    imgInterRoad.src = "sprite/bridge/route_blanc.png"
-
-    imgInterSegmentW.src = "sprite/bridge/interSegment_blanc.png"
-    imgInterSegmentY.src = "sprite/bridge/interSegment_jaune.png"
-
-    imgBarriere.src = "sprite/bridge/barriere.png"
-
-    imgStart1.src = "sprite/bridge/start_1.png"
-    imgStart2.src = "sprite/bridge/start_2.png"
-    imgEnd1.src = "sprite/bridge/end_1.png"
-    imgEnd2.src = "sprite/bridge/end_2.png"
-
-    imgBulle.src   = "sprite/bulle.png"
-    imgNupe.src = "sprite/nupe.png" 
-
-    imgBlack.src = "sprite/tuto/black.png"
-    imgTuto2_1.src = "sprite/tuto/2-1.png"
-    imgTuto3_1.src = "sprite/tuto/3-1.png"
-
-
-    imgIntroPlanche.src = "sprite/intro/ees_planche.png"
+    img.add( "sprite/intro/ees_planche.png" , "IntroPlanche"  )
 
 
     for(S=1; S<=74; S++)
     {
-        imgVoitureIntro[S] = new Image()
-        imgVoitureIntro[S].src = "sprite/intro/ees_"+S+".png"
+         img.add( "sprite/intro/ees_"+S+".png" , "VoitureIntro"+S  )
     }
 
     
     for(S=1; S<=4; S++)
     {
-        imgObstacle[S] = new Image()
-        imgObstacle[S].src = "sprite/obstacle/obstacle_"+S+".png"
+         img.add( "sprite/obstacle/obstacle_"+S+".png" , "Obstacle"+S   )
     }
 
 
     for (let S=1; S<=9;S++)
     {
-        voitureBoom.img[S] = new Image()
-        voitureBoom.img[S].src = "sprite/boom/boom"+S+".png"
+         img.add( "sprite/boom/boom"+S+".png" , "voitureBoom"+S   )
     }
 
-    voitureCrash.img[1] = new Image()
-    voitureCrash.img[2] = new Image()
-    voitureCrash.img[1].src = "sprite/boom/crash1.png"
-    voitureCrash.img[2].src = "sprite/boom/crash2.png"
 
-    voiture.img[1] = new Image()
-    voiture.img[2] = new Image()
-    voiture.img[1].src = "sprite/voiture1.png"
-    voiture.img[2].src = "sprite/voiture2.png"
+    img.add( "sprite/boom/crash1.png" , "voitureCrash1"  )
+    img.add( "sprite/boom/crash2.png" , "voitureCrash2"  )
+
+
+    img.add( "sprite/voiture1.png" , "voiture1" )
+    img.add( "sprite/voiture2.png" , "voiture2" )
     
 
+    img.add( "sprite/fond 2/C1-1.png" , "fond1_1"  )
+    img.add( "sprite/fond 2/C1-2.png" , "fond1_2"  )
+    img.add( "sprite/fond 2/C2-1.png" , "fond2_1"  )
+    img.add( "sprite/fond 2/C2-2.png" , "fond2_2"  )
+    img.add( "sprite/fond 2/C3-1.png" , "fond3_1"  )
+    img.add( "sprite/fond 2/C3-2.png" , "fond3_2"  )
+    img.add( "sprite/fond 2/C4-1.png" , "fond4_1"  )
+    img.add( "sprite/fond 2/C4-2.png" , "fond4_2"  )
+    img.add(   "sprite/fond 2/C5.png" , "fond5"  )
 
-    voiture.x=-200
-    voiture.y=V [voiture.V]
+    img.add( "sprite/curseur.png" , "Curseur"   )
+    img.add( "sprite/titre.png" ,  "Titre"  )
 
+ 
+    img.start()
 
-    fond1_1.src = "sprite/fond 2/C1-1.png"
-    fond1_2.src = "sprite/fond 2/C1-2.png"
-    fond2_1.src  = "sprite/fond 2/C2-1.png"
-    fond2_2.src  = "sprite/fond 2/C2-2.png"
-    fond3_1.src  = "sprite/fond 2/C3-1.png"
-    fond3_2.src  = "sprite/fond 2/C3-2.png"
-    fond4_1.src  = "sprite/fond 2/C4-1.png"
-    fond4_2.src  = "sprite/fond 2/C4-2.png"
-    fond5.src    = "sprite/fond 2/C5.png"
-
-
-    imgCurseur.src  = "sprite/curseur.png" 
-    imgTitre.src  = "sprite/titre.png" 
 
     PlaceCursor()
 
@@ -455,17 +447,33 @@ function update()
 
 function draw(pCtx)
 {
-    
-    pCtx.drawImage(fond5, 0,0)
-    pCtx.drawImage(fond4_1, fond4_1X,0)
-    pCtx.drawImage(fond4_2, fond4_2X,0)
-    pCtx.drawImage(fond3_1, fond4_1X,0)
-    pCtx.drawImage(fond3_2, fond3_2X,0)
-    pCtx.drawImage(fond3_2, fond3_2X,0)
-    pCtx.drawImage(fond2_1, fond2_1X,0)
-    pCtx.drawImage(fond2_2, fond2_2X,0)
-    pCtx.drawImage(fond1_1, fond1_1X,0)
-    pCtx.drawImage(fond1_2, fond1_2X,0)
+     img.draw("fond5", 0,0, pCtx)
+     img.draw("fond4_1", fond4_1X,0, pCtx)
+     img.draw("fond4_2", fond4_2X,0, pCtx)
+     img.draw("fond3_1", fond4_1X,0, pCtx)
+     img.draw("fond3_2", fond3_2X,0, pCtx)
+     img.draw("fond3_2", fond3_2X,0, pCtx)
+     img.draw("fond2_1", fond2_1X,0, pCtx)
+     img.draw("fond2_2", fond2_2X,0, pCtx)
+     img.draw("fond1_1", fond1_1X,0, pCtx)
+     img.draw("fond1_2", fond1_2X,0, pCtx)
+
+
+
+    if (GameMod == 8 /*test*/ )
+    {
+        /*
+        console.log ( Math.floor(img.loadedImageCount/img.lstPaths.length *100 )+" % ")
+        pCtx.fillText(  Math.floor( img.loadedImageCount/img.lstPaths.length *100 )+" % ", 0, 0 )
+        pCtx.fillRect(550,300,100,30)
+        pCtx.fillStyle = 'rgb(255, 0, 255,)'
+        pCtx.fillRect(550,300,100*img.loadedImageCount/img.lstPaths.length ,30)
+        */
+
+
+         
+
+    }
 
 
     if (GameMod == 3)
@@ -474,7 +482,7 @@ function draw(pCtx)
         
         for (let S= 0; S<=3; S++)
         {
-            pCtx.drawImage(imgMainRoad, roadX+ (S*roadEcartX), roadY-128  )
+             img.draw("MainRoad", roadX+ (S*roadEcartX), roadY-128  , pCtx)
         
         }
 
@@ -485,7 +493,7 @@ function draw(pCtx)
                 
             while( S*roadEcartX< distObstacle*1.6) 
             {
-                pCtx.drawImage(imgInterRoad, (FindNumSegment(nextObstacle-1) ) * distSegment + distDepart -distObstacle*0.8+ (S*roadEcartX) - distVoiture, roadY)
+                 img.draw("InterRoad", (FindNumSegment(nextObstacle-1) ) * distSegment + distDepart -distObstacle*0.8+ (S*roadEcartX) - distVoiture, roadY, pCtx)
                 S++
             }
         }
@@ -495,13 +503,13 @@ function draw(pCtx)
         if( nextObstacle!=1 /*&& nextObstacle  < nbSegment*nbObstacleSegment-3*/ )  
         {
         
-            pCtx.drawImage(imgInterSegmentW, (FindNumSegment(nextObstacle) - 1) * distSegment + distDepart +distObstacle*0.8 - distVoiture, roadY)
+             img.draw("InterSegmentW", (FindNumSegment(nextObstacle) - 1) * distSegment + distDepart +distObstacle*0.8 - distVoiture, roadY, pCtx)
             
             if( FindNumSegment(nextObstacle+3)<= nbSegment)
             {
                 //les deux sont nécéssaire car il y a un changement de segment lorsque dépassé
-                pCtx.drawImage(imgInterSegmentY, (FindNumSegment(nextObstacle-1)  ) * distSegment + distDepart -distObstacle*0.8 - distVoiture, roadY)
-                pCtx.drawImage(imgInterSegmentY, (FindNumSegment(nextObstacle) -1 ) * distSegment + distDepart -distObstacle*0.8 - distVoiture, roadY)
+                 img.draw("InterSegmentY", (FindNumSegment(nextObstacle-1)  ) * distSegment + distDepart -distObstacle*0.8 - distVoiture, roadY, pCtx)
+                 img.draw("InterSegmentY", (FindNumSegment(nextObstacle) -1 ) * distSegment + distDepart -distObstacle*0.8 - distVoiture, roadY, pCtx)
             }
         }
    
@@ -513,7 +521,7 @@ function draw(pCtx)
             {
                 if (B01[segment[FindNumSegment(nextObstacle + S1)][FindNumObstacle(nextObstacle + S1)]][S2] == 1 /*&& FindNumSegment(nextObstacle + S1) <nbSegment*/)
                 {
-                    pCtx.drawImage(imgObstacle[ skinObstacle [4*(nextObstacle+S1) +S2 ]  ], CalObsPosX(nextObstacle + S1), V[S2+1]+10 /*roadY + roadEcartY * (S2)*/)
+                     img.draw("Obstacle" + skinObstacle [4*(nextObstacle+S1) +S2 ]  , CalObsPosX(nextObstacle + S1), V[S2+1]+10 /*roadY + roadEcartY * (S2)*/, pCtx)
                 } 
             }
         }
@@ -521,14 +529,14 @@ function draw(pCtx)
 
 
 
-        pCtx.drawImage(voiture.img[Math.floor(frameVoiture) ],voiture.x,voiture.y+Math.floor(Math.floor(frameVoiture-1)*2))
+         img.draw("voiture" +Math.floor(frameVoiture) ,voiture.x,voiture.y+Math.floor(Math.floor(frameVoiture-1)*2), pCtx)
 
 
         pCtx.fillText("remaining distance" , 100, 50)
         pCtx.fillText( Math.floor( (distTotal - distVoiture) /70  )+" m", 174 , 70)
 
 
-        pCtx.drawImage(voiture.img[Math.floor(frameVoiture) ],voiture.x,voiture.y+Math.floor(Math.floor(frameVoiture-1)*2))
+         img.draw("voiture" +[Math.floor(frameVoiture) ],voiture.x,voiture.y+Math.floor(Math.floor(frameVoiture-1)*2), pCtx)
 
 
         let NOF // nextObstacleFictif
@@ -553,7 +561,7 @@ function draw(pCtx)
                 hasPlaySignal = true;
             }
 
-            pCtx.drawImage(imgBulle, 750,20 )
+             img.draw("Bulle", 750,20 , pCtx)
 
             
             
@@ -561,18 +569,18 @@ function draw(pCtx)
             {
                 if (segment[FindNumSegment(NOF) + 1].voieDepart == 1)
                 { 
-                    pCtx.drawImage(imgNupe, 155+95+700, 28+12)
-                    pCtx.drawImage(imgNupe, 155+95+700, 58+12) 
+                     img.draw("Nupe", 155+95+700, 28+12, pCtx)
+                     img.draw("Nupe", 155+95+700, 58+12, pCtx) 
                 }
                 else if (segment[FindNumSegment(NOF) + 1].voieDepart == 2)
                 {
-                    pCtx.drawImage(imgNupe, 155+95+700, 28+12)
-                    pCtx.drawImage(imgNupe, 155+95+700, 118+12)
+                     img.draw("Nupe", 155+95+700, 28+12, pCtx)
+                     img.draw("Nupe", 155+95+700, 118+12, pCtx)
                 }
                 else
                 {
-                    pCtx.drawImage(imgNupe, 155+95+700, 88+12)
-                    pCtx.drawImage(imgNupe, 155+95+700, 118+12)
+                     img.draw("Nupe", 155+95+700, 88+12, pCtx)
+                     img.draw("Nupe", 155+95+700, 118+12, pCtx)
                 }
             }
 
@@ -581,10 +589,10 @@ function draw(pCtx)
             {
                 if (segment[FindNumSegment(NOF) + 1].voieDepart == 1)
                 {
-                    pCtx.drawImage(imgNupe, 155+95+700, 28+12)         
+                     img.draw("Nupe", 155+95+700, 28+12, pCtx)         
                 }
                 else 
-                pCtx.drawImage(imgNupe, 155+95+700, 118+12)
+                 img.draw("Nupe", 155+95+700, 118+12, pCtx)
             }
         }
         else
@@ -595,7 +603,7 @@ function draw(pCtx)
         if (FreezeTUTO()==true)
         {
             pCtx.globalAlpha = 0.4
-            pCtx.drawImage(imgBlack,0,0,1200,675)
+            pCtx.drawImage( imgBlack,0,0,1200,675)
             pCtx.globalAlpha = 1
             /*
             tuto.txt[tuto.state].forEach(element => {
@@ -606,7 +614,7 @@ function draw(pCtx)
             for (let S = 1; S <= tuto.txt[tuto.state].length; S++ )
             {
                 pCtx.globalAlpha = 0.8
-                pCtx.drawImage(imgBlack,tuto.txtX[tuto.state][S]-10,tuto.txtY[tuto.state][S]-15,20+ (600-tuto.txtX[tuto.state][S])*2 ,20)
+                pCtx.drawImage( imgBlack,tuto.txtX[tuto.state][S]-10,tuto.txtY[tuto.state][S]-15,20+ (600-tuto.txtX[tuto.state][S])*2 ,20 ) 
                 pCtx.globalAlpha = 1
             
 
@@ -615,12 +623,12 @@ function draw(pCtx)
 
             }
 
-            if (tuto.state == 2) {pCtx.drawImage(imgTuto2_1,935,120 )}
-            if (tuto.state == 3) {pCtx.drawImage(imgTuto3_1, 890,33 )}
+            if (tuto.state == 2) { img.draw("Tuto2_1",935,120 , pCtx)}
+            if (tuto.state == 3) { img.draw("Tuto3_1", 890,33 , pCtx)}
 
             //pCtx.fillText( tuto.txt[tuto.state] , tuto.txtX[tuto.state], tuto.txtY[tuto.state])
 
-            pCtx.drawImage(imgBlack, 465-10 ,550-15, 20+ (600-465)*2 ,20)
+            pCtx.drawImage( imgBlack, 465-10 ,550-15, 20+ (600-465)*2 ,20)
             pCtx.fillText( "PRESS ENTER TO CONTINUE" , 465 , 550)
 
         }
@@ -631,7 +639,7 @@ function draw(pCtx)
     {
         for (let S= 0; S<=3; S++)
         {
-            pCtx.drawImage(imgMainRoad, roadX+ (S*roadEcartX), roadY-128  )
+             img.draw("MainRoad", roadX+ (S*roadEcartX), roadY-128  , pCtx)
         
         }
 
@@ -643,7 +651,7 @@ function draw(pCtx)
                     
                 while( S*roadEcartX< distObstacle*1.6) 
                 {
-                    pCtx.drawImage(imgInterRoad, (FindNumSegment(nextObstacle-1) ) * distSegment + distDepart -distObstacle*0.8+ (S*roadEcartX) - distVoiture, roadY)
+                     img.draw("InterRoad", (FindNumSegment(nextObstacle-1) ) * distSegment + distDepart -distObstacle*0.8+ (S*roadEcartX) - distVoiture, roadY, pCtx)
                     S++
                 }
             }
@@ -653,13 +661,13 @@ function draw(pCtx)
             if( nextObstacle!=1 /*&& nextObstacle  < nbSegment*nbObstacleSegment-3*/ )  
             {
             
-                pCtx.drawImage(imgInterSegmentW, (FindNumSegment(nextObstacle) - 1) * distSegment + distDepart +distObstacle*0.8 - distVoiture, roadY)
+                 img.draw("InterSegmentW", (FindNumSegment(nextObstacle) - 1) * distSegment + distDepart +distObstacle*0.8 - distVoiture, roadY, pCtx)
                 
                 if( FindNumSegment(nextObstacle+3)<= nbSegment)
                 {
                     //les deux sont nécéssaire car il y a un changement de segment lorsque dépassé
-                    pCtx.drawImage(imgInterSegmentY, (FindNumSegment(nextObstacle-1)  ) * distSegment + distDepart -distObstacle*0.8 - distVoiture, roadY)
-                    pCtx.drawImage(imgInterSegmentY, (FindNumSegment(nextObstacle) -1 ) * distSegment + distDepart -distObstacle*0.8 - distVoiture, roadY)
+                     img.draw("InterSegmentY", (FindNumSegment(nextObstacle-1)  ) * distSegment + distDepart -distObstacle*0.8 - distVoiture, roadY, pCtx)
+                     img.draw("InterSegmentY", (FindNumSegment(nextObstacle) -1 ) * distSegment + distDepart -distObstacle*0.8 - distVoiture, roadY, pCtx)
                 }
             }
        
@@ -671,7 +679,7 @@ function draw(pCtx)
                 {
                     if (B01[segment[FindNumSegment(nextObstacle + S1)][FindNumObstacle(nextObstacle + S1)]][S2] == 1 )
                     {
-                        pCtx.drawImage(imgObstacle[ skinObstacle [4*(nextObstacle+S1) +S2 ]  ], CalObsPosX(nextObstacle + S1), V[S2+1]+10 )
+                         img.draw("Obstacle"+ skinObstacle [4*(nextObstacle+S1) +S2 ]  , CalObsPosX(nextObstacle + S1), V[S2+1]+10 , pCtx)
                     } 
                 }
             }
@@ -680,14 +688,14 @@ function draw(pCtx)
             if (GameMod == 5)  
         {
     
-            pCtx.drawImage(voiture.img[Math.floor(frameVoiture) ],voiture.x,voiture.y+Math.floor(Math.floor(frameVoiture-1)*2))
+             img.draw("voiture" + Math.floor(frameVoiture) ,voiture.x,voiture.y+Math.floor(Math.floor(frameVoiture-1)*2), pCtx)
     
     
             pCtx.fillText("remaining distance" , 100, 50)
             pCtx.fillText( Math.floor( (distTotal - distVoiture) /70  )+" m", 174 , 70)
     
 
-            pCtx.drawImage(voiture.img[Math.floor(frameVoiture) ],voiture.x,voiture.y+Math.floor(Math.floor(frameVoiture-1)*2))
+             img.draw("voiture" +Math.floor(frameVoiture) ,voiture.x,voiture.y+Math.floor(Math.floor(frameVoiture-1)*2), pCtx)
     
     
             let NOF // nextObstacleFictif
@@ -712,24 +720,24 @@ function draw(pCtx)
                     hasPlaySignal = true;
                 }
 
-                pCtx.drawImage(imgBulle, 750,20  )
+                 img.draw("Bulle", 750,20  , pCtx)
                 
                 if (segment[FindNumSegment(NOF) + 1].nbVoie == 2)
                 {
                     if (segment[FindNumSegment(NOF) + 1].voieDepart == 1)
                     { 
-                        pCtx.drawImage(imgNupe, 155+95+700, 28+12)
-                        pCtx.drawImage(imgNupe, 155+95+700, 58+12) 
+                         img.draw("Nupe", 155+95+700, 28+12, pCtx)
+                         img.draw("Nupe", 155+95+700, 58+12, pCtx) 
                     }
                     else if (segment[FindNumSegment(NOF) + 1].voieDepart == 2)
                     {
-                        pCtx.drawImage(imgNupe, 155+95+700, 28+12)
-                        pCtx.drawImage(imgNupe, 155+95+700, 118+12)
+                         img.draw("Nupe", 155+95+700, 28+12, pCtx)
+                         img.draw("Nupe", 155+95+700, 118+12, pCtx)
                     }
                     else
                     {
-                        pCtx.drawImage(imgNupe, 155+95+700, 88+12)
-                        pCtx.drawImage(imgNupe, 155+95+700, 118+12)
+                         img.draw("Nupe", 155+95+700, 88+12, pCtx)
+                         img.draw("Nupe", 155+95+700, 118+12, pCtx)
                     }
                 }
 
@@ -738,10 +746,10 @@ function draw(pCtx)
                 {
                     if (segment[FindNumSegment(NOF) + 1].voieDepart == 1)
                     {
-                        pCtx.drawImage(imgNupe, 155+95+700, 28+12)         
+                         img.draw("Nupe", 155+95+700, 28+12, pCtx)      
                     }
                     else 
-                    pCtx.drawImage(imgNupe, 155+95+700, 118+12)
+                     img.draw("Nupe", 155+95+700, 118+12, pCtx)
                 }
             }
             else
@@ -755,16 +763,17 @@ function draw(pCtx)
         { 
             if(raisonBoom=="obstacle")
             {
-                pCtx.drawImage(voitureCrash.img[Math.floor(frameVoiture) ],voiture.x+10,voiture.y)
+                 img.draw("voitureCrash" +Math.floor(frameVoiture) ,voiture.x+10,voiture.y, pCtx)
             }
             if(raisonBoom=="mine")
             {
-                pCtx.drawImage(voitureBoom.img[Math.floor(frameVoiture) ],voiture.x,voiture.y+86 - voitureBoom.img[Math.floor(frameVoiture) ].height  )
+                 img.draw("voitureBoom" +Math.floor(frameVoiture) ,voiture.x,voiture.y+86 -  img.getH("voitureBoom"+Math.floor(frameVoiture)) , pCtx)
+                 /*voitureBoom.img[Math.floor(frameVoiture) ].height */
             }
             
     
     
-            pCtx.drawImage(imgCurseur, curseur.x,curseur.y )
+             img.draw("Curseur", curseur.x,curseur.y , pCtx)
     
             pCtx.fillText("Arrow to naviguate - ENTER to choose  ", 400, 50 )
             pCtx.fillText(menu.I[1][1].txt, menu.I[1][1].x, menu.I[1][1].y)
@@ -780,8 +789,8 @@ function draw(pCtx)
         if (GameMod == 7)
         { 
 
-            pCtx.drawImage(imgEnd1, roadX  + roadEcartX*4 ,175)
-            pCtx.drawImage(voiture.img[Math.floor(frameVoiture) ],voiture.x,voiture.y+Math.floor(Math.floor(frameVoiture-1)*2))
+             img.draw("End1", roadX  + roadEcartX*4 ,175, pCtx)
+             img.draw("voiture" +Math.floor(frameVoiture) ,voiture.x,voiture.y+Math.floor(Math.floor(frameVoiture-1)*2), pCtx)
             pCtx.fillText("Mission complete", 500, 300)
      
         } //WIN
@@ -789,21 +798,29 @@ function draw(pCtx)
 
     if ( GameMod == 1 || GameMod == 2 || GameMod == 4 )
     { 
-        
-        pCtx.drawImage(imgStart1,0,175)
-        pCtx.drawImage(imgObstacle[1], 350, V[1]+10 )
-        pCtx.drawImage(imgObstacle[2], 350, V[2]+10  )
-        pCtx.drawImage(imgObstacle[3], 350, V[3]+10  )
-        pCtx.drawImage(imgObstacle[4], 350, V[4]+10  )
+        /*
+         img.draw("Start1,0,175)
+         img.draw("Obstacle[1], 350, V[1]+10 )
+         img.draw("Obstacle[2], 350, V[2]+10  )
+         img.draw("Obstacle[3], 350, V[3]+10  )
+         img.draw("Obstacle[4], 350, V[4]+10  )
 
-        pCtx.drawImage(imgIntroPlanche, 280, 370   )
+         img.draw("IntroPlanche, 280, 370   )*/
+
+         img.draw("Start1",0,175, pCtx)
+         img.draw("Obstacle"+1, 350, V[1]+10 , pCtx)
+         img.draw("Obstacle"+2, 350, V[2]+10  , pCtx)
+         img.draw("Obstacle"+3, 350, V[3]+10  , pCtx)
+         img.draw("Obstacle"+4, 350, V[4]+10  , pCtx)
+
+         img.draw("IntroPlanche", 280, 370   , pCtx)
 
 
         if (GameMod == 1)
         {
-            ctx.fillStyle = 'rgb(255, 255, 255)';
+            //ctx.fillStyle = 'rgb(255, 255, 255)';
 
-            pCtx.drawImage(imgTitre,200,65)
+             img.draw("Titre",200,65, pCtx)
     
             pCtx.fillText("-- CLICK TO PLAY --", 510, 50 )
         } //CLICTOPLAY
@@ -819,14 +836,14 @@ function draw(pCtx)
             pCtx.fillText(menu.I[menu.statut][S].txt, menu.I[menu.statut][S].x, menu.I[menu.statut][S].y)
            }
 
-           pCtx.drawImage(imgCurseur, curseur.x,curseur.y )
+            img.draw("Curseur", curseur.x,curseur.y , pCtx)
 
         } // MENU
 
 
         if (GameMod == 4)
         {
-                pCtx.drawImage(imgVoitureIntro[Math.floor(frameVoiture) ],0,175 )
+                 img.draw("VoitureIntro"+Math.floor(frameVoiture) ,0,175 , pCtx)
         }
 
 
@@ -839,20 +856,20 @@ function draw(pCtx)
 
     if (GameMod == 4 || GameMod == 2 || GameMod == 1)
     {
-        pCtx.drawImage(imgStart2, 0, 175+48-20 )
+         img.draw("Start2", 0, 175+48-20 , pCtx)
     }
     else
     {
         if(GameMod== 7)
         {
-            pCtx.drawImage(imgEnd2, roadX  + roadEcartX*4 ,175+48-20)
+             img.draw("End2", roadX  + roadEcartX*4 ,175+48-20, pCtx)
 
         }
         
         
             for (let S= 0; S<=3; S++)
             {
-                pCtx.drawImage(imgBarriere, roadX+ (S*roadEcartX), 522+48-20  )
+                 img.draw("Barriere", roadX+ (S*roadEcartX), 522+48-20  , pCtx)
             }
         
         

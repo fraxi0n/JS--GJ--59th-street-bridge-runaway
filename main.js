@@ -5,6 +5,8 @@ let interval;
 let derniereUpdate = Date.now()
 let dt 
 let maintenant
+ctx.fillStyle = 'rgb(255, 255, 255)'
+
 
 function run(){
 
