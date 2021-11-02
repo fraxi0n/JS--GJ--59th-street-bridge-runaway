@@ -462,13 +462,14 @@ function draw(pCtx)
 
     if (GameMod == 8 /*test*/ )
     {
+        
+        //console.log ( Math.floor(img.loadedImageCount/img.lstPaths.length *100 )+" % ")
+        pCtx.fillText(  Math.floor( img.loadedImageCount/img.lstPaths.length *100 )+" % ", 600, 300 )
         /*
-        console.log ( Math.floor(img.loadedImageCount/img.lstPaths.length *100 )+" % ")
-        pCtx.fillText(  Math.floor( img.loadedImageCount/img.lstPaths.length *100 )+" % ", 0, 0 )
         pCtx.fillRect(550,300,100,30)
         pCtx.fillStyle = 'rgb(255, 0, 255,)'
-        pCtx.fillRect(550,300,100*img.loadedImageCount/img.lstPaths.length ,30)
-        */
+        pCtx.fillRect(550,300,100*img.loadedImageCount/img.lstPaths.length ,30)*/
+        
 
 
          
