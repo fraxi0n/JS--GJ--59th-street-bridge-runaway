@@ -447,20 +447,9 @@ function update()
 
 function draw(pCtx)
 {
-     img.draw("fond5", 0,0, pCtx)
-     img.draw("fond4_1", fond4_1X,0, pCtx)
-     img.draw("fond4_2", fond4_2X,0, pCtx)
-     img.draw("fond3_1", fond4_1X,0, pCtx)
-     img.draw("fond3_2", fond3_2X,0, pCtx)
-     img.draw("fond3_2", fond3_2X,0, pCtx)
-     img.draw("fond2_1", fond2_1X,0, pCtx)
-     img.draw("fond2_2", fond2_2X,0, pCtx)
-     img.draw("fond1_1", fond1_1X,0, pCtx)
-     img.draw("fond1_2", fond1_2X,0, pCtx)
+     
 
-
-
-    if (GameMod == 8 /*test*/ )
+    if (GameMod == 8)
     {
         
         //console.log ( Math.floor(img.loadedImageCount/img.lstPaths.length *100 )+" % ")
@@ -475,7 +464,20 @@ function draw(pCtx)
          
 
     }
+    else 
+    {
+     img.draw("fond5", 0,0, pCtx)
+     img.draw("fond4_1", fond4_1X,0, pCtx)
+     img.draw("fond4_2", fond4_2X,0, pCtx)
+     img.draw("fond3_1", fond4_1X,0, pCtx)
+     img.draw("fond3_2", fond3_2X,0, pCtx)
+     img.draw("fond3_2", fond3_2X,0, pCtx)
+     img.draw("fond2_1", fond2_1X,0, pCtx)
+     img.draw("fond2_2", fond2_2X,0, pCtx)
+     img.draw("fond1_1", fond1_1X,0, pCtx)
+     img.draw("fond1_2", fond1_2X,0, pCtx)
 
+    }
 
     if (GameMod == 3)
     {
