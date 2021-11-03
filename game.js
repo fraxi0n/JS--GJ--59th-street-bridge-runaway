@@ -105,11 +105,11 @@ function update()
     {
         timer += dt
 
-        if ( timer < 2 && alphaFade < 1)
+        if ( timer < 3 && alphaFade < 1)
         {
             alphaFade += 2* dt
         }
-        else if (timer > 2 /*&& alphaFade > 0*/)
+        else if (timer > 4 /*&& alphaFade > 0*/)
         {
             alphaFade -= 1.5 * dt
         } 
@@ -117,7 +117,7 @@ function update()
 
 
 
-        if (timer >= 3 && img.ready == true)
+        if (timer >= 5 && img.ready == true)
         {
             GameMod = 1 /* Clic to Play */
             alphaFade = 0

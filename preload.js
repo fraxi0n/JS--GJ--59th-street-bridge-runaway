@@ -76,7 +76,7 @@ let curseur=[]
 
 let GameMod = 8  /* Img Load */
 
-let alphaFade = -1
+let alphaFade = -5
 
 
 // ---------------------
