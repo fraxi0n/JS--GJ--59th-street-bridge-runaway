@@ -62,7 +62,7 @@ function InitGame() // initialise les variable + génère la map a lier au creat
     }  
 
 
-    if (GameMod == 2)
+    if (GameMod == 2  /* MENU */)
     {
         ReglageDifficulte(menu.curseur-2)
     }
@@ -254,10 +254,10 @@ function CalObsPosX(pNumObstacle) //calcule la position en X des obstacle (utili
 
 function mouseDown() // CLICK TO PLAY
 {
-    if (GameMod == 1)
+    if (GameMod == 1  /* Clic to Play */)
     {
         cursorInstance.val.start();
-        GameMod=2
+        GameMod = 2 /* MENU */
     }
     
 } //mouseDown
@@ -270,7 +270,7 @@ function KeyDown(t) //      ELSE IF A TESTER
         t.preventDefault()
     }
 
-    if (GameMod == 2 || GameMod == 6 )
+    if (GameMod == 2  /* MENU */ || GameMod == 6  /* OVER */ )
     {
 
 
@@ -293,10 +293,12 @@ function KeyDown(t) //      ELSE IF A TESTER
         if (t.code == "Enter")
         {
 
-            if (GameMod == 6)
+            if (GameMod == 6  /* OVER */)
             {
                 explosionInstance.val.stop(FMOD.STUDIO_STOP_ALLOWFADEOUT);
                 obstacleInstance.val.stop(FMOD.STUDIO_STOP_ALLOWFADEOUT);
+                musicInstance.val.setParameterByID(fadeOutID, true, false);
+
             }
 
             voiture.x = voiture.xIntro
@@ -307,7 +309,7 @@ function KeyDown(t) //      ELSE IF A TESTER
                 {
                    
                     InitTUTO()
-                    GameMod = 3
+                    GameMod = 3  /* TUTO */
 
 
                 } 
@@ -316,7 +318,7 @@ function KeyDown(t) //      ELSE IF A TESTER
                     musicInstance.val.setParameterByID(fadeOutID, false, false);
                     musicInstance.val.start(); 
                     InitGame()
-                    GameMod = 4
+                    GameMod = 4  /* INTRO */
 
                 }
 
@@ -332,12 +334,12 @@ function KeyDown(t) //      ELSE IF A TESTER
                     if (tuto.over== true)
                     {
                         InitTUTO()
-                        GameMod = 3
+                        GameMod = 3  /* TUTO */
                     }
                     else
                     {
                         InitGame()
-                        GameMod = 4  
+                        GameMod = 4  /* INTRO */  
                     }
                     
                 }   
@@ -346,7 +348,7 @@ function KeyDown(t) //      ELSE IF A TESTER
                 {
                     InitMenu() //21/10
 
-                    GameMod = 2
+                    GameMod = 2  /* MENU */
                     menu.statut=2
                     menu.curseur=1
                     PlaceCursor()
@@ -361,11 +363,11 @@ function KeyDown(t) //      ELSE IF A TESTER
 
 
 
-    else if (GameMod == 5 || GameMod == 3)
+    else if (GameMod == 5  /* GAME */ || GameMod == 3 /* TUTO */  )
     {
         
 
-        if (GameMod == 3 && FreezeTUTO()==true)
+        if (GameMod == 3  /* TUTO */  && FreezeTUTO()==true)
         {
             if (t.code == "Enter")
             {
@@ -421,21 +423,19 @@ function BOOM(pRaison)
         explosionInstance.val.start();
     }
 
-    if (GameMod == 3)
+    if (GameMod == 3  /* TUTO */ )
     {
         tuto.over = true 
-       // InitTUTO()
+
     }
     else 
     {
         tuto.over = false 
     }
     
-    
-    //else
-    //{
-        GameMod = 6
-    //}
+
+    GameMod = 6  /* OVER */
+
 
     hasPlaySignal = false;
 } //BOOM

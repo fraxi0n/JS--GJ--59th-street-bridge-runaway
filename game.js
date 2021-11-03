@@ -39,7 +39,6 @@ function load()
     img.add("sprite/bulle.png" , "Bulle"  )
     img.add( "sprite/nupe.png" ,  "Nupe"  )
 
-   //   -----------------------------------------------------------------
     img.add( "sprite/tuto/2-1.png" , "Tuto2_1"  )
     img.add( "sprite/tuto/3-1.png" , "Tuto3_1"  )
 
@@ -98,7 +97,7 @@ function load()
 
 function update()
 {
-    if (GameMod == 3)
+    if (GameMod == 3  /* TUTO */)
     {
         if (FreezeTUTO() == true)
         {
@@ -152,7 +151,7 @@ function update()
                 nextObstacle = nextObstacle + 1
                 if(FindNumSegment(nextObstacle)== nbSegment+1) 
                 {
-                    GameMod=7
+                    GameMod = 7  /* WIN */
                     timer = 5
                     musicInstance.val.setParameterByID(fadeOutID, true, false);
                 }
@@ -223,21 +222,34 @@ function update()
     } //TUTO
 
 
-    if (GameMod == 4)
+    if (GameMod == 4  /* INTRO */)
     {
         
-            frameVoiture += voitureSpeed*0.040*dt*2
-            if(frameVoiture>=75)
-            {
-                frameVoiture=1
-                voiture.x = voiture.xGame
-                GameMod=5
-            }
+        frameVoiture += voitureSpeed*0.040*dt*2
+
+        if  (frameVoiture >= 53 && soundCascade == false  )
+        {
+            soundCascade = true 
+            
+            //mettre le son de cascade ICI
+        }
+
+        if(frameVoiture>=75)
+        {
+            frameVoiture=1
+            voiture.x = voiture.xGame
+            soundCascade = false 
+            GameMod = 5  /* GAME */
+        }
+
+
+
+
 
         
     } //INTRO
 
-    if (GameMod == 5)
+    if (GameMod == 5  /* GAME */)
 
     {
 
@@ -290,7 +302,7 @@ function update()
             nextObstacle = nextObstacle + 1
             if(FindNumSegment(nextObstacle)== nbSegment+1) 
             {
-                GameMod=7
+                GameMod = 7  /* WIN */
                 timer = 5
                 musicInstance.val.setParameterByID(fadeOutID, true, false);
             }
@@ -349,7 +361,7 @@ function update()
         }
     } //GAME
 
-    if (GameMod == 6)
+    if (GameMod == 6  /* OVER */)
     {
         if (timer>0)
         {
@@ -405,7 +417,7 @@ function update()
 
     } //OVER
 
-    if (GameMod == 7)
+    if (GameMod == 7 /* WIN */)
     {
 
         distVoiture = distVoiture + voitureSpeed * dt
@@ -413,7 +425,7 @@ function update()
         timer -= dt
         if(timer<=0)
         {
-            GameMod=2
+            GameMod = 2 /* MENU */ 
 
             InitMenu()
 
@@ -449,7 +461,7 @@ function draw(pCtx)
 {
      
 
-    if (GameMod == 8)
+    if (GameMod == 8  /* Img Load */)
     {
         
         //console.log ( Math.floor(img.loadedImageCount/img.lstPaths.length *100 )+" % ")
@@ -479,7 +491,7 @@ function draw(pCtx)
 
     }
 
-    if (GameMod == 3)
+    if (GameMod == 3  /* TUTO */)
     {
 
         
@@ -638,7 +650,7 @@ function draw(pCtx)
     } //TUTO
 
 
-    if (GameMod == 5 || GameMod == 6 || GameMod==7)
+    if (GameMod == 5  /* GAME */ || GameMod == 6  /* OVER */ || GameMod == 7  /* WIN */)
     {
         for (let S= 0; S<=3; S++)
         {
@@ -646,7 +658,7 @@ function draw(pCtx)
         
         }
 
-        if (GameMod == 5 || GameMod == 6)
+        if (GameMod == 5  /* GAME */ || GameMod == 6  /* OVER */)
         {
             if (nextObstacle>=2 && FindNumSegment(nextObstacle+3)<= nbSegment ) 
             {
@@ -661,7 +673,7 @@ function draw(pCtx)
             
 
 
-            if( nextObstacle!=1 /*&& nextObstacle  < nbSegment*nbObstacleSegment-3*/ )  
+            if( nextObstacle!=1 )  
             {
             
                  img.draw("InterSegmentW", (FindNumSegment(nextObstacle) - 1) * distSegment + distDepart +distObstacle*0.8 - distVoiture, roadY, pCtx)
@@ -688,7 +700,7 @@ function draw(pCtx)
             }
 
 
-            if (GameMod == 5)  
+            if (GameMod == 5  /* GAME */)  
         {
     
              img.draw("voiture" + Math.floor(frameVoiture) ,voiture.x,voiture.y+Math.floor(Math.floor(frameVoiture-1)*2), pCtx)
@@ -701,8 +713,7 @@ function draw(pCtx)
              img.draw("voiture" +Math.floor(frameVoiture) ,voiture.x,voiture.y+Math.floor(Math.floor(frameVoiture-1)*2), pCtx)
     
     
-            let NOF // nextObstacleFictif
-            // NOF = next obstacle mais corrige un bug de dizaine en fin de segment 
+            let NOF // nextObstacleFictif -> next obstacle mais corrige un bug de dizaine en fin de segment 
     
             if (FindNumObstacle(nextObstacle)==1)
             {
@@ -762,7 +773,7 @@ function draw(pCtx)
     
             } // GAME 
 
-            if (GameMod == 6)
+            if (GameMod == 6  /* OVER */)
         { 
             if(raisonBoom=="obstacle")
             {
@@ -789,7 +800,7 @@ function draw(pCtx)
 
         } // GAME + OVER
 
-        if (GameMod == 7)
+        if (GameMod == 7 /* WIN */)
         { 
 
              img.draw("End1", roadX  + roadEcartX*4 ,175, pCtx)
@@ -799,17 +810,8 @@ function draw(pCtx)
         } //WIN
     }
 
-    if ( GameMod == 1 || GameMod == 2 || GameMod == 4 )
+    if ( GameMod == 1  /* Clic to Play */ || GameMod == 2  /* MENU */ || GameMod == 4  /* INTRO */ )
     { 
-        /*
-         img.draw("Start1,0,175)
-         img.draw("Obstacle[1], 350, V[1]+10 )
-         img.draw("Obstacle[2], 350, V[2]+10  )
-         img.draw("Obstacle[3], 350, V[3]+10  )
-         img.draw("Obstacle[4], 350, V[4]+10  )
-
-         img.draw("IntroPlanche, 280, 370   )*/
-
          img.draw("Start1",0,175, pCtx)
          img.draw("Obstacle"+1, 350, V[1]+10 , pCtx)
          img.draw("Obstacle"+2, 350, V[2]+10  , pCtx)
@@ -819,17 +821,15 @@ function draw(pCtx)
          img.draw("IntroPlanche", 280, 370   , pCtx)
 
 
-        if (GameMod == 1)
+        if (GameMod == 1  /* Clic to Play */)
         {
-            //ctx.fillStyle = 'rgb(255, 255, 255)';
-
-             img.draw("Titre",200,65, pCtx)
-    
+            img.draw("Titre",200,65, pCtx)
             pCtx.fillText("-- CLICK TO PLAY --", 510, 50 )
+
         } //CLICTOPLAY
     
     
-        if (GameMod == 2)
+        if (GameMod == 2  /* MENU */)
         {
 
            pCtx.fillText("Arrow to naviguate - ENTER to choose  ", 400, 50 )
@@ -844,7 +844,7 @@ function draw(pCtx)
         } // MENU
 
 
-        if (GameMod == 4)
+        if (GameMod == 4  /* INTRO */)
         {
                  img.draw("VoitureIntro"+Math.floor(frameVoiture) ,0,175 , pCtx)
         }
@@ -857,13 +857,13 @@ function draw(pCtx)
  // Barrière basse 
     pCtx.globalAlpha = 0.4
 
-    if (GameMod == 4 || GameMod == 2 || GameMod == 1)
+    if (GameMod == 4  /* INTRO */ || GameMod == 2  /* MENU */ || GameMod == 1  /* Clic to Play */)
     {
          img.draw("Start2", 0, 175+48-20 , pCtx)
     }
     else
     {
-        if(GameMod== 7)
+        if(GameMod == 7 /* WIN */)
         {
              img.draw("End2", roadX  + roadEcartX*4 ,175+48-20, pCtx)
 

@@ -124,8 +124,8 @@ class ImageManager {
     this.loadedImageCount++
     if (this.loadedImageCount == this.lstPaths.length)
     {
-      GameMod = 1
-      console.log( "lets GO !!!" )
+      GameMod = 1  /* Clic to Play */
+      //console.log( "lets GO !!!" )
     }
 
 

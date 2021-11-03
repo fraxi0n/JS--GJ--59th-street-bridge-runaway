@@ -70,7 +70,11 @@ let timer
 
 let skinObstacle = [] 
 
-let GameMod = 10
+let soundCascade = false
+
+let curseur=[]
+
+let GameMod = 8  /* Img Load */
 
 
 // ---------------------
@@ -213,8 +217,5 @@ let fond4_2W = 1336
 
 
 
-//-----------------------------
 
-let curseur=[]
 
-GameMod = 8
