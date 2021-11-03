@@ -10,12 +10,15 @@ GameMod :
 10 - image loader
 */
 
+var logo = new Image()
+logo.src = "sprite/fmod_logo.png"
 
 
 
 
 function load() 
 {
+    
     document.addEventListener("keydown", KeyDown, false)
     document.addEventListener("keyup", KeyUp, false)  
     document.addEventListener("mousedown", mouseDown)
@@ -467,6 +470,7 @@ function draw(pCtx)
         
         //console.log ( Math.floor(img.loadedImageCount/img.lstPaths.length *100 )+" % ")
         pCtx.fillText(  Math.floor( img.loadedImageCount/img.lstPaths.length *100 )+" % ", 600, 300 )
+        pCtx.drawImage(logo, 418, 350, 364, 96)
         /*
         pCtx.fillRect(550,300,100,30)
         pCtx.fillStyle = 'rgb(255, 0, 255,)'
