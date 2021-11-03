@@ -297,7 +297,10 @@ function KeyDown(t) //      ELSE IF A TESTER
             {
                 explosionInstance.val.stop(FMOD.STUDIO_STOP_ALLOWFADEOUT);
                 obstacleInstance.val.stop(FMOD.STUDIO_STOP_ALLOWFADEOUT);
-                musicInstance.val.setParameterByID(fadeOutID, true, false);
+                if (menu.curseur == 2)
+                {
+                    musicInstance.val.setParameterByID(fadeOutID, true, false);
+                }
 
             }
 

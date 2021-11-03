@@ -232,6 +232,7 @@ function update()
             soundCascade = true 
             
             //mettre le son de cascade ICI
+            cascadeInstance.val.start();
         }
 
         if(frameVoiture>=75)

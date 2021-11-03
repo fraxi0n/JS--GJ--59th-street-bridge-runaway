@@ -50,6 +50,7 @@ var BANK_NAME = [
 var musicInstance = {};
 var cursorInstance = {};
 var explosionInstance = {};
+var cascadeInstance = {};
 var signalInstance = {};
 var obstacleInstance = {};
 var fadeOutID;
@@ -354,6 +355,11 @@ function initApplication()
     CHECK_RESULT( gSystem.getEvent("event:/cursor", cursorDescription) );
     
     CHECK_RESULT( cursorDescription.val.createInstance(cursorInstance) );
+
+    var cascadeDescription = {};
+    CHECK_RESULT( gSystem.getEvent("event:/cascade", cascadeDescription) );
+    
+    CHECK_RESULT( cascadeDescription.val.createInstance(cascadeInstance) );
     
     var signalDescription = {};
     CHECK_RESULT( gSystem.getEvent("event:/signal", signalDescription) );
