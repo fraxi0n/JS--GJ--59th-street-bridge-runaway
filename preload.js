@@ -66,7 +66,7 @@ let frameVoiture = 1
 let raisonBoom
 
 let decalWin = 0 // anim de fin 
-let timer 
+let timer = 0
 
 let skinObstacle = [] 
 
@@ -75,6 +75,8 @@ let soundCascade = false
 let curseur=[]
 
 let GameMod = 8  /* Img Load */
+
+let alphaFade = -1
 
 
 // ---------------------
@@ -192,8 +194,10 @@ let menu=[]
 //IMAGE
 let  img = new ImageManager
 
+let logo = new Image
 let imgBlack = new Image
- img.add( "sprite/tuto/black.png" , "Black"  )
+
+
 
 
 //position en x des fonds (les fonds scrolls)

@@ -10,8 +10,8 @@ GameMod :
 10 - image loader
 */
 
-var logo = new Image()
-logo.src = "sprite/fmod_logo.png"
+
+
 
 
 
@@ -24,6 +24,7 @@ function load()
     document.addEventListener("mousedown", mouseDown)
 
     imgBlack.src= "sprite/tuto/black.png"
+    logo.src = "sprite/fmod_logo.png"
 
     img.add(  "sprite/bridge/route.png", "MainRoad" )
     img.add(  "sprite/bridge/route_blanc.png", "InterRoad"  )
@@ -100,6 +101,38 @@ function load()
 
 function update()
 {
+    if (GameMod == 8  /* Img Load*/)
+    {
+        timer += dt
+
+        if ( timer < 2 && alphaFade < 1)
+        {
+            alphaFade += 2* dt
+        }
+        else if (timer > 2 /*&& alphaFade > 0*/)
+        {
+            alphaFade -= 1.5 * dt
+        } 
+
+
+
+
+        if (timer >= 3 && img.ready == true)
+        {
+            GameMod = 1 /* Clic to Play */
+            alphaFade = 0
+
+        }
+
+
+
+    }
+
+    if (GameMod == 1  /* Clic to Play */ && alphaFade < 1)
+    {
+        alphaFade += 3* dt
+    }
+
     if (GameMod == 3  /* TUTO */)
     {
         if (FreezeTUTO() == true)
@@ -463,23 +496,22 @@ function update()
 
 function draw(pCtx)
 {
+    if (alphaFade<1 )
+    {
+        pCtx.globalAlpha = alphaFade
+    }
      
 
     if (GameMod == 8  /* Img Load */)
     {
+        if ( alphaFade> 0)
+        {
+            pCtx.globalAlpha = alphaFade
+            pCtx.drawImage(logo, 418, 250, 364, 96)
+            pCtx.globalAlpha = 1
+        }
+
         
-        //console.log ( Math.floor(img.loadedImageCount/img.lstPaths.length *100 )+" % ")
-        pCtx.fillText(  Math.floor( img.loadedImageCount/img.lstPaths.length *100 )+" % ", 600, 300 )
-        pCtx.drawImage(logo, 418, 350, 364, 96)
-        /*
-        pCtx.fillRect(550,300,100,30)
-        pCtx.fillStyle = 'rgb(255, 0, 255,)'
-        pCtx.fillRect(550,300,100*img.loadedImageCount/img.lstPaths.length ,30)*/
-        
-
-
-         
-
     }
     else 
     {
@@ -859,8 +891,10 @@ function draw(pCtx)
     }  
 
 
- // Barrière basse 
-    pCtx.globalAlpha = 0.4
+
+
+    pCtx.globalAlpha = 0.4 
+
 
     if (GameMod == 4  /* INTRO */ || GameMod == 2  /* MENU */ || GameMod == 1  /* Clic to Play */)
     {

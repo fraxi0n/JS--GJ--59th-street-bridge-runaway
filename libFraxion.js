@@ -72,6 +72,7 @@ class ImageManager {
     this.LstImages = []
     this.loadedImageCount = 0
     this.index=[]
+    this.ready = false
   }
 
   add(pPathImage, pIndex) {
@@ -124,8 +125,8 @@ class ImageManager {
     this.loadedImageCount++
     if (this.loadedImageCount == this.lstPaths.length)
     {
-      GameMod = 1  /* Clic to Play */
-      //console.log( "lets GO !!!" )
+      this.ready = true 
+      
     }
 
 
