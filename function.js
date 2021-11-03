@@ -256,6 +256,7 @@ function mouseDown() // CLICK TO PLAY
 {
     if (GameMod == 1  /* Clic to Play */)
     {
+        sfxBus.val.setMute(true);
         cursorInstance.val.start();
         GameMod = 2 /* MENU */
     }
@@ -273,11 +274,15 @@ function KeyDown(t) //      ELSE IF A TESTER
     if (GameMod == 2  /* MENU */ || GameMod == 6  /* OVER */ )
     {
 
-
         if (t.code == "ArrowUp") 
          {
             menu.curseur -- 
             if (menu.curseur==0){ menu.curseur= menu.I[menu.statut].length -1 }
+            sfxBus.val.getMute(sfxMute)
+            if (sfxMute)
+            {
+                sfxBus.val.setMute(false);
+            }
             cursorInstance.val.start();
             PlaceCursor()
          }
@@ -285,6 +290,11 @@ function KeyDown(t) //      ELSE IF A TESTER
         {
             menu.curseur ++
             if (menu.curseur==menu.I[menu.statut].length){ menu.curseur=1 }
+            sfxBus.val.getMute(sfxMute)
+            if (sfxMute)
+            {
+                sfxBus.val.setMute(false);
+            }
             cursorInstance.val.start();
              PlaceCursor()
         } // ARROW

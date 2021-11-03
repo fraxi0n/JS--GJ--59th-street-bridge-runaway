@@ -54,6 +54,8 @@ var cascadeInstance = {};
 var signalInstance = {};
 var obstacleInstance = {};
 var fadeOutID;
+var sfxBus = {};
+var sfxMute = {};
 
 var gBank = [ null, null];
 var gWantBankLoaded = [ false, false];
@@ -345,6 +347,8 @@ function initApplication()
     loadBank("Master.strings.bank");
     loadBank("Music.bank");
     loadBank("SFX.bank");
+
+    CHECK_RESULT( gSystem.getBus("bus:/SFX", sfxBus) );
 
     var musicDescription = {};
     CHECK_RESULT( gSystem.getEvent("event:/music", musicDescription) );
